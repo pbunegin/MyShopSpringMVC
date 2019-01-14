@@ -1,8 +1,8 @@
-<%@ page import="pojo.Category" %>
-<%@ page import="pojo.Product" %>
+<%@ page import="data.Product" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE HTML>
 
@@ -10,10 +10,10 @@
     <meta charset="utf-8">
     <title>Список товаров</title>
 
-    <link rel="stylesheet" href="style.css">
-    <script src="listProd.js" asyns></script>
-    <script src="jquery-3.3.1.min.js" asyns></script>
-    <script src="script.js" asyns></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <script src="${pageContext.request.contextPath}/js/listProd.js" asyns></script>
+    <script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js" asyns></script>
+    <script src="${pageContext.request.contextPath}/js/script.js" asyns></script>
 </head>
 
 <body>
@@ -103,12 +103,14 @@
                             <%
 
 
-                                List<Category> categories = (List<Category>) request.getAttribute("categories");
-                                for (Category category: categories){
-                                    out.println("<div class=\"category\"><div>" + category.getCategoryName() + "</div></div>");
-                                    out.println("<div class=\"products\">");
-
+                                List<Product> products = (List<Product>) request.getAttribute("products");
+                                    String categoryName = null;
                                     for (Product product: category.getProducts()){
+                                    if (!categoryName.equals(product.getCategoryName)){
+                                        out.println("<div class=\"category\"><div>" + category.getCategoryName() + "</div></div>");
+                                        out.println("<div class=\"products\">");
+                                    }
+
                                         out.println("<div class=\"product\" id=\"" + product.getId() + "\">");
                                         out.println("<div class=\"logo\"><img src=" + product.getImgUrl() +
                                                 " value=\"logoButton\" width=\"150px\"><div class=\"productName\">" +

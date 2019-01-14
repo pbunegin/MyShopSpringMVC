@@ -5,12 +5,16 @@ import java.util.List;
 import org.shop.api.UserService;
 import org.shop.data.User;
 import org.shop.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
     private UserRepository repository;
+
+    public UserServiceImpl(UserRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public Long registerUser(User user) {

@@ -5,16 +5,17 @@ import java.util.List;
 import org.shop.api.ProductService;
 import org.shop.data.Product;
 import org.shop.repository.ProductRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ProductServiceImpl implements ProductService {
 
-    private final ProductRepository repository;
+    private ProductRepository repository;
 
     public ProductServiceImpl(ProductRepository repository) {
-        super();
         this.repository = repository;
     }
-    
+
     @Override
     public Product getProductById(Long id) {
         return repository.getProductById(id);

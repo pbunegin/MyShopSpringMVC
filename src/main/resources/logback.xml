@@ -2,7 +2,7 @@
 <configuration>
 
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <file>src\main\java\file.log</file>
+        <file>file.log</file>
         <append>false</append>
         <encoder>
             <pattern>%d{dd MMM yyyy HH:mm:ss.SSS} %-5level [%thread] - [%logger] - %msg%n</pattern>
@@ -19,7 +19,7 @@
         <appender-ref ref="sout" />
     </logger>
 
-    <root level="DEBUG">
+    <root level="info">
         <appender-ref ref="FILE" />
     </root>
 </configuration>

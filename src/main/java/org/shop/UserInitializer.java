@@ -8,7 +8,6 @@ public class UserInitializer {
     private UserService userService;
 
     public UserInitializer(UserService userService) {
-        super();
         this.userService = userService;
     }
     

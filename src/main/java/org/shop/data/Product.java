@@ -5,6 +5,7 @@ import java.util.Map;
 
 public class Product implements Entity {
     private String productName;
+    private String categoryName;
     private Long id;
     private double price;
     private Map<String, String> characteristic = new HashMap<>();
@@ -42,6 +43,14 @@ public class Product implements Entity {
 
     public void setCharacteristic(String name, String value) {
         this.characteristic.put(name, value);
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public String getImgUrl() {

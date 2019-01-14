@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.shop.data.Product;
 import org.shop.repository.ProductRepository;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class ProductMapRepository extends AbstractMapRepository<Product> implements ProductRepository {
 
     @Override
@@ -15,7 +17,7 @@ public class ProductMapRepository extends AbstractMapRepository<Product> impleme
     
     @Override
     public List<Product> getProducts() {
-        return new ArrayList<Product>(register.values());
+        return new ArrayList<>(register.values());
     }
     
     @Override

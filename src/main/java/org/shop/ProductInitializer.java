@@ -6,16 +6,12 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.shop.api.ProductService;
 
-import org.shop.data.Category;
 import org.shop.data.Product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ProductInitializer {
     public static final Logger logger = LoggerFactory.getLogger(ProductInitializer.class);
@@ -24,17 +20,14 @@ public class ProductInitializer {
     private ProductService productService;
 
     public ProductInitializer(ProductService productService) {
-        super();
         this.productService = productService;
     }
 
-    public static void main(String[] args) {
-        initProducts();
-    }
+//    public static void main(String[] args) {
+//        initProducts();
+//    }
     
-    public static void initProducts() {
-        List<Category> result = new ArrayList<>();
-
+    public void initProducts() {
         JSONArray categories = null;
         try {
             categories = (JSONArray) new JSONParser().parse(new FileReader("src\\main\\java\\org\\shop\\db\\listProd.json"));
@@ -46,8 +39,7 @@ public class ProductInitializer {
 
         for (int i = 0; i < categories.size(); i++) {
             JSONObject categoryObj = (JSONObject) categories.get(i);
-            Category category = new Category((String) categoryObj.get("categoryName"));
-            List<Product> products = category.getProducts();
+            String categoryName = (String) categoryObj.get("categoryName");
             JSONArray productsObj = (JSONArray) categoryObj.get("products");
             for (int j = 0; j < productsObj.size(); j++) {
                 JSONObject productObj = (JSONObject) productsObj.get(j);
@@ -57,10 +49,6 @@ public class ProductInitializer {
                         product.setProductName((String) productObj.get(key));
                         continue;
                     }
-                    if (((String)key).equals("id")){
-                        product.setId(Long.parseLong((String) productObj.get(key)));
-                        continue;
-                    }
                     if (((String)key).equals("price")){
                         product.setPrice(Double.parseDouble((String) productObj.get(key)));
                         continue;
@@ -68,9 +56,17 @@ public class ProductInitializer {
                     product.setCharacteristic((String) key,(String) productObj.get(key));
                 }
                 product.setImgUrl();
-                products.add(product);
+                product.setCategoryName(categoryName);
+                productService.createProduct(product);
             }
-            result.add(category);
         }
+//        for (Category category: result){
+//            for (Product product: category.getProducts()){
+//                File file = new File(product.getImgUrl());
+//                File newFile = new File("src\\main\\webapp\\prodImg\\" + product.getProductName().replaceAll("\\s","_") + ".jpg");
+//                file.renameTo(newFile);
+//            }
+//        }
+
     }
 }
