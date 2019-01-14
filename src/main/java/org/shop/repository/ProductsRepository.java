@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.shop.data.Product;
 
-public interface ProductRepository {
+public interface ProductsRepository {
     
     Product getProductById(Long productId);
     

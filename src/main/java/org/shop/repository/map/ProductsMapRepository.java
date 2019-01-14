@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.shop.data.Product;
-import org.shop.repository.ProductRepository;
+import org.shop.repository.ProductsRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class ProductMapRepository extends AbstractMapRepository<Product> implements ProductRepository {
+public class ProductsMapRepository extends AbstractMapRepository<Product> implements ProductsRepository {
 
     @Override
     public Product getProductById(Long productId) {

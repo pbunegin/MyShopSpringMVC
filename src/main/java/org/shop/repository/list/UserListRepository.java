@@ -1,32 +1,33 @@
-package org.shop.repository.map;
+package org.shop.repository.list;
 
 import org.shop.data.User;
 import org.shop.repository.UserRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository
-public class UserMapRepository extends AbstractMapRepository<User> implements UserRepository {
+public class UserListRepository implements UserRepository {
+    private List<User> users = new ArrayList<>();
 
     @Override
     public User getUserById(Long id) {
-        return get(id);
+        return null;
     }
 
     @Override
     public Long createUser(User user) {
-        return create(user);
+//        users.add(user);
+//        return users.lastIndexOf(user);
+        return 0L;
     }
 
     @Override
     public void updateUser(User user) {
-        update(user);
+
     }
 
     @Override
     public List<User> getUsers() {
-        return new ArrayList<>(register.values());
+        return null;
     }
 }

@@ -4,15 +4,15 @@ import java.util.List;
 
 import org.shop.api.ProductService;
 import org.shop.data.Product;
-import org.shop.repository.ProductRepository;
+import org.shop.repository.ProductsRepository;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ProductServiceImpl implements ProductService {
 
-    private ProductRepository repository;
+    private ProductsRepository repository;
 
-    public ProductServiceImpl(ProductRepository repository) {
+    public ProductServiceImpl(ProductsRepository repository) {
         this.repository = repository;
     }
 

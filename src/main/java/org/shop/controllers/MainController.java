@@ -16,8 +16,9 @@ public class MainController {
 
     @RequestMapping(value = { "/", "/index" }, method = RequestMethod.GET)
     public String index(Model model) {
-//        model.addAttribute("products", productService.getProducts());
+        model.addAttribute("products", productService.getProducts());
 
-        return "login";
+        return "index";
     }
+
 }

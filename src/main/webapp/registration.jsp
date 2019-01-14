@@ -1,11 +1,14 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE HTML>
 
 <head>
     <meta charset="utf-8">
     <title>Регистрация</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="jquery-3.3.1.min.js"></script>
-    <script src="script.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/script.js"></script>
 </head>
 
 <body>
