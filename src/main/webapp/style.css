@@ -1,0 +1,255 @@
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+input{
+    border-radius: 10px;
+    outline: none;
+    padding: 2px 5px 0;
+    font-size: 18px;
+
+}
+
+.login{
+    width: fit-content;
+    height: fit-content;
+    margin: 10% auto;
+    background: cyan;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.imgLogout,
+.imgBasket,
+.imgSearch{
+    position: relative;
+    top: -5px;
+    max-height: 30px;
+    cursor:pointer;
+}
+
+.login label,
+.login input{
+    display: table;
+    margin: 5px auto;
+}
+
+.menu{
+    position: fixed;
+    top: 0;
+    background: burlywood;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    height: 20px;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+}
+
+.cabinet,
+.search,
+.basket{
+    width: 33%;
+}
+
+.cabinet{
+    display: flex;
+    flex-flow: row;
+}
+
+.search{
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+}
+
+.basket{
+    display: flex;
+    flex-flow: row;
+    justify-content: flex-end;
+}
+
+.cabinet div,
+.basket .countProducts{
+    margin: 0 10px;
+}
+
+.countProducts{
+    visibility: hidden;
+    width: 14px;
+    border: 1px solid red;
+    border-radius: 50%;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    padding: 1px;
+    padding-top: 2px;
+}
+
+.content{
+    margin-top: 50px;
+}
+
+.footer div,
+.category div{
+    display: table;
+    margin: 0 auto;
+}
+
+.category{
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px auto;
+    background: rgb(0, 255, 128);
+    padding: 5px;
+    position: sticky;
+    top: 40px;
+    z-index: 3;
+    border-radius: 10px;
+}
+.products{
+    padding: 20px;
+    background:rgb(204, 204, 204);
+    display: flex;
+    flex-flow: wrap;
+    justify-content: space-around;
+    border-radius: 10px;
+}
+.content .logo:hover,
+.content .infoProduct:hover{
+    cursor: pointer;
+}
+
+.product{
+    width: min-content;
+    background: white;
+    margin: 10px;
+    padding: 15px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.logo{
+    text-align: center;
+    margin: 0 auto;
+}
+
+.infoProduct{
+    flex-grow: 1;
+    align-items: center;
+    display: none;
+}
+
+.characteristics{
+    flex-grow: 1;
+    padding-left: 30px;
+    border-right: 1px solid rgba(183, 183, 183, 0.46);
+}
+
+.price{
+    font-size: 20px;
+    font-weight: bold;
+    padding: 0 40px;
+}
+
+.addToBasket,
+.removeFromBasket{
+    display: none;
+    max-height: 40px;
+    margin-right: 20px;
+    cursor:pointer;
+    z-index: 5;
+}
+
+
+.footer{
+    position: absolute;
+    background: burlywood;
+    left: 0;
+    right: 0;
+    margin-top: 3px;
+    padding: 1%;
+    font-size: 18px;
+    font-weight: bold;
+
+}
+
+.popupMenu{
+    width:100%;
+    min-height:100%;
+    background-color: rgba(0,0,0,0.5);
+    display: none;
+    position:fixed;
+    top:0px;
+    z-index: 2000;
+}
+.popupMenu .popupContent{
+    margin: 5% auto;
+    width: 80%;
+    height: 80%;
+    padding:10px;
+    background-color: #c5c5c5;
+    border-radius:5px;
+    box-shadow: 0px 0px 10px #000;
+}
+
+#popup1 .infoProduct{
+    display: flex;
+}
+
+#popup2 .product{
+    height: max-content;
+}
+
+.poupBasketProducts{
+    border: 1px solid gray;
+    overflow: auto;
+    min-height: 400px;
+    max-height: 500px;
+    background-color: rgb(230, 230, 230);
+}
+
+.popupHeader{
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.popupHeader a{
+    margin-bottom: 5px;
+    float: right;
+}
+
+.poupSearchProducts{
+    border: 1px solid gray;
+    overflow: auto;
+    min-height: 400px;
+    max-height: 500px;
+    background-color: rgb(230, 230, 230);
+    display: flex;
+    flex-flow: wrap;
+}
+
+.popupFooter{
+    display: flex;
+    padding: 15px 30px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.popupFooter .total{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.placeOrder{
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 10px;
+    outline: none;
+}
