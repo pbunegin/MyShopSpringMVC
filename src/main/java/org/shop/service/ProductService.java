@@ -1,4 +1,4 @@
-package org.shop.api;
+package org.shop.service;
 
 import java.util.List;
 
@@ -6,13 +6,13 @@ import org.shop.data.Product;
 
 public interface ProductService {
     
-    Product getProductById(Long productId);
+    Product getProductById(int productId);
 
     List<Product> getProducts();
     
     List<Product> getProductsByName(String name);
     
-    Long createProduct(Product product);
+    int createProduct(Product product);
     
     void updateProduct(Product product);
     

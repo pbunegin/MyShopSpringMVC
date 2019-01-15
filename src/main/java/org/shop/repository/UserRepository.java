@@ -6,9 +6,9 @@ import org.shop.data.User;
 
 public interface UserRepository {
     
-    User getUserById(Long id);
+    User getUserById(int id);
     
-    Long createUser(User user);
+    int createUser(User user);
     
     void updateUser(User user);
     

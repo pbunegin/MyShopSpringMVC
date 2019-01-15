@@ -2,8 +2,8 @@ package org.shop.data;
 
 import java.util.List;
 
-public class User implements Entity{
-    private Long id;
+public class User {
+    private int id;
     private String firstName;
     private String lastName;
     private String password;
@@ -41,13 +41,11 @@ public class User implements Entity{
         this.basket = basket;
     }
 
-    @Override
-    public Long getId() {
+    public int getId() {
         return this.id;
     }
 
-    @Override
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 }

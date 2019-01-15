@@ -1,23 +1,21 @@
-package org.shop.api.impl;
+package org.shop.service.impl;
 
 import java.util.List;
 
-import org.shop.api.ProductService;
+import org.shop.service.ProductService;
 import org.shop.data.Product;
 import org.shop.repository.ProductsRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ProductServiceImpl implements ProductService {
 
+    @Autowired
     private ProductsRepository repository;
 
-    public ProductServiceImpl(ProductsRepository repository) {
-        this.repository = repository;
-    }
-
     @Override
-    public Product getProductById(Long id) {
+    public Product getProductById(int id) {
         return repository.getProductById(id);
     }
 
@@ -32,7 +30,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Long createProduct(Product product) {
+    public int createProduct(Product product) {
         return repository.createProduct(product);
     }
 

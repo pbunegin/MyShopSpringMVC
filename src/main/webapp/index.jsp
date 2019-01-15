@@ -1,6 +1,4 @@
-<%@ page import="data.Product" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.Map" %>
+<%@ page isELIgnored="false" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -89,59 +87,33 @@
 
 </div>
 <div class="content" id="content">
-    <c:forEach var="prod" items="${products}">
-
+    <c:forEach var = "category" items = "${products}">
+		<div class="category">
+			<div>${category.categoryName}</div>
+		</div>
+        <div class="products">
+			<c:forEach var = "product" items = "${category.products}">
+				<div class="product" id= "${product.id}">
+                    <div class="logo">
+                        <img src="${product.imgUrl}" value="logoButton" width="150px">
+                        <div class="productName">${product.productName}</div>
+                    </div>
+                    <div class="infoProduct">
+                        <div class="characteristics">
+                            <ul>
+                                <c:forEach var = "charact" items = "${product.characteristic}">
+                                    <li>${charact.key}: ${charact.value}</li>
+                                </c:forEach>
+                            </ul>
+                        </div>
+						<div class="price">${product.price}</div>
+					</div>
+					<img class="addToBasket" value="В корзину" src="/img/addToBasket.png">
+					<img class="removeFromBasket" value="В корзину" src="/img/removeFromBasket.png">
+				</div>
+			</c:forEach>
+		</div>
     </c:forEach>
-
-    <div class="category">
-        <div>Телевизоры и медиа</div>
-    </div>
-    <div class="products">
-        <div class="product">
-            <div class="logo">
-                <img src="prod1.jpg" value="logoButton" width="100%">
-                <div class="productName">Телевизор</div>
-            </div>
-            <div class="infoProduct">
-                <div class="characteristics">
-                    <ul>
-                    </ul>
-                </div>
-                <div class="price">12000</div>
-            </div>
-
-            <img class="addToBasket" value="В корзину" src="img/addToBasket.png">
-            <img class="removeFromBasket" value="В корзину" src="img/removeFromBasket.png">
-
-        </div>
-    </div>
-    <%
-    List<Product> products = (List<Product>) request.getAttribute("products");
-                                        String categoryName = null;
-                                        for (Product product: category.getProducts()){
-                                        if (!categoryName.equals(product.getCategoryName)){
-                                            out.println("<div class=\"category\"><div>" + category.getCategoryName() + "</div></div>");
-                                            out.println("<div class=\"products\">");
-                                        }
-
-                                            out.println("<div class=\"product\" id=\"" + product.getId() + "\">");
-                                            out.println("<div class=\"logo\"><img src=" + product.getImgUrl() +
-                                                    " value=\"logoButton\" width=\"150px\"><div class=\"productName\">" +
-                                                    product.getProductName() + "</div></div><div class=\"infoProduct\">" +
-                                                    "<div class=\"characteristics\"><ul>");
-                                            for (Map.Entry<String, String> charact: product.getCharacteristic().entrySet()){
-                                                out.println("<li>" + charact.getKey() + ": " + charact.getValue() + "</li>");
-                                            }
-                                            out.println("</ul></div><div class=\"price\">" + product.getPrice() + "</div></div>" +
-                                                    "<img class=\"addToBasket\" value=\"В корзину\" src=\"/img/addToBasket.png\">" +
-                                                    "<img class=\"removeFromBasket\" value=\"В корзину\" src=\"/img/removeFromBasket.png\"></div>");
-                                        }
-                                        out.println("</div>");
-                                    }
-
-    %>
-
-
 </div>
 <div class="footer">
     <div>Java RD. Project "HTML, CSS, JS basics". Made by Petr Bunegin.</div>

@@ -1,16 +1,14 @@
 package org.shop;
 
-import org.shop.api.UserService;
+import org.shop.service.UserService;
 import org.shop.data.User;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class UserInitializer {
 
+    @Autowired
     private UserService userService;
 
-    public UserInitializer(UserService userService) {
-        this.userService = userService;
-    }
-    
     public void initUsers() {
         User user = null;
         

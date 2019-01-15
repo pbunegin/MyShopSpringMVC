@@ -3,9 +3,9 @@ package org.shop.data;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Product implements Entity {
+public class Product {
     private String productName;
-    private Long id;
+    private int id;
     private double price;
     private Map<String, String> characteristic = new HashMap<>();
     private String imgUrl;
@@ -18,13 +18,11 @@ public class Product implements Entity {
         this.productName = productName;
     }
 
-    @Override
-    public Long getId() {
+    public int getId() {
         return this.id;
     }
 
-    @Override
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

@@ -6,13 +6,13 @@ import org.shop.data.Product;
 
 public interface ProductsRepository {
     
-    Product getProductById(Long productId);
+    Product getProductById(int productId);
     
     List<Product> getProducts();
     
     List<Product> getProductsByName(String name);
     
-    Long createProduct(Product product);
+    int createProduct(Product product);
     
     void updateProduct(Product product);
     

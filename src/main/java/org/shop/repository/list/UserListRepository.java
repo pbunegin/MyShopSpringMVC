@@ -2,32 +2,35 @@ package org.shop.repository.list;
 
 import org.shop.data.User;
 import org.shop.repository.UserRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class UserListRepository implements UserRepository {
     private List<User> users = new ArrayList<>();
+    private int lastId  = 0;
 
     @Override
-    public User getUserById(Long id) {
-        return null;
+    public User getUserById(int id) {
+        return users.get(id);
     }
 
     @Override
-    public Long createUser(User user) {
-//        users.add(user);
-//        return users.lastIndexOf(user);
-        return 0L;
+    public int createUser(User user) {
+        users.add(user);
+        user.setId(++lastId);
+        return lastId;
     }
 
     @Override
     public void updateUser(User user) {
-
+        users.set(users.indexOf(user), user);
     }
 
     @Override
     public List<User> getUsers() {
-        return null;
+        return users;
     }
 }

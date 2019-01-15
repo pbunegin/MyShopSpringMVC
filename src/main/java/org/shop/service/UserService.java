@@ -1,4 +1,4 @@
-package org.shop.api;
+package org.shop.service;
 
 import java.util.List;
 
@@ -6,9 +6,9 @@ import org.shop.data.User;
 
 public interface UserService {
     
-    Long registerUser(User user);
+    int registerUser(User user);
     
-    User getUserById(Long id);
+    User getUserById(int id);
     
     void updateUserProfile(User user);
     

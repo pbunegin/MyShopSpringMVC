@@ -1,8 +1,6 @@
 package org.shop.config;
 
 import org.shop.*;
-import org.shop.api.ProductService;
-import org.shop.api.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -15,12 +13,12 @@ public class DataInitConfig {
     }
 
     @Bean
-    public ProductInitializer getProductInitializer(ProductService productService){
-        return new ProductInitializer(productService);
+    public ProductInitializer getProductInitializer(){
+        return new ProductInitializer();
     }
 
     @Bean
-    public UserInitializer getUserInitializer(UserService userService){
-        return new UserInitializer(userService);
+    public UserInitializer getUserInitializer(){
+        return new UserInitializer();
     }
 }
