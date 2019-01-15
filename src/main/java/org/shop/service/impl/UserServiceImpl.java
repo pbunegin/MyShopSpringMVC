@@ -33,8 +33,4 @@ public class UserServiceImpl implements UserService {
     public List<User> getUsers() {
         return repository.getUsers();
     }
-
-    public void populate(UserRepository repository) {
-        this.repository = repository;
-    }
 }

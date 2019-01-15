@@ -47,6 +47,6 @@ public class Product {
     }
 
     public void setImgUrl() {
-        this.imgUrl = "src\\main\\webapp\\prodImg\\" + this.getProductName() + ".jpg";
+        this.imgUrl = "/prodImg/" + this.getProductName().replaceAll("\\s","_") + ".jpg";
     }
 }

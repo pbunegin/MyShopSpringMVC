@@ -2,6 +2,7 @@ package org.shop.service;
 
 import java.util.List;
 
+import org.shop.data.Category;
 import org.shop.data.Product;
 
 public interface ProductService {
@@ -17,4 +18,8 @@ public interface ProductService {
     void updateProduct(Product product);
     
     void deleteProduct(Long productId);
+
+    void createCategory(Category category);
+
+    List<Category> getCategories();
 }

@@ -2,6 +2,7 @@ package org.shop.service.impl;
 
 import java.util.List;
 
+import org.shop.data.Category;
 import org.shop.service.ProductService;
 import org.shop.data.Product;
 import org.shop.repository.ProductsRepository;
@@ -42,5 +43,15 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteProduct(Long productId) {
         repository.deleteProduct(productId);
+    }
+
+    @Override
+    public void createCategory(Category category) {
+        repository.createCategory(category);
+    }
+
+    @Override
+    public List<Category> getCategories() {
+        return repository.getCategories();
     }
 }

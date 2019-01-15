@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!DOCTYPE HTML>
@@ -5,9 +6,9 @@
 <head>
     <meta charset="utf-8">
     <title>Вход в личный кабинет</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="jquery-3.3.1.min.js"></script>
-    <script src="script.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/script.js"></script>
 </head>
 
 <body>
@@ -27,7 +28,7 @@
             %>
             </p>
         </form>
-        <a href="registration.html">Регистация</a>
+        <a href="registration">Регистация</a>
     </div>
 </body>
 

@@ -65,7 +65,7 @@ public class ProductInitializer {
                 product.setImgUrl();
                 products.add(product);
             }
-            result.add(category);
+            productService.createCategory(category);
         }
     }
 //        for (Category category: result){

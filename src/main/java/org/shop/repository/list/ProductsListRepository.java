@@ -45,4 +45,14 @@ public class ProductsListRepository implements ProductsRepository {
     public void deleteProduct(Long productId) {
 
     }
+
+    @Override
+    public void createCategory(Category category) {
+        categories.add(category);
+    }
+
+    @Override
+    public List<Category> getCategories() {
+        return categories;
+    }
 }
