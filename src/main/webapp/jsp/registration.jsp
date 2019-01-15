@@ -13,7 +13,7 @@
 
 <body>
     <div class="login">
-        <form action="index.html" target="_self" id="registration" onsubmit='checkPass()'>
+        <form action="registration" id="registration" onsubmit='checkPass()'>
             <input type="text" pattern="^[A-Za-zА-Яа-яЁё]{2,}$" name="firstName" autocomplete="off" placeholder="Имя..." required>
             <br>
             <input type="text" pattern="^[A-Za-zА-Яа-яЁё]{2,}$" name="lastName" autocomplete="off" placeholder="Фамилия..." required>

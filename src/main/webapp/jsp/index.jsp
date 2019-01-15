@@ -66,10 +66,10 @@
 
 <div class="menu">
     <div class="cabinet">
-        <a href="login">
+        <a href="logout">
             <img class="imgLogout" value="Поиск" src="img/logout.png">
         </a>
-        <div class="username" id="username">${userName}</div>
+        <div class="username" id="username">${user}</div>
     </div>
     <div class="search">
         <a href="javascript:searchShow()">

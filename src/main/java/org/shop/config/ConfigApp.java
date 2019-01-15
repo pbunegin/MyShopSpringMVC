@@ -16,14 +16,8 @@ public class ConfigApp implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        List<String> pathPatterns = new ArrayList<>();
-//        pathPatterns.add("/js/*");
-        pathPatterns.add("/css/*");
-//        pathPatterns.add("/img/*");
-        pathPatterns.add("/login");
-        pathPatterns.add("/error");
-        pathPatterns.add("/registration");
-        registry.addInterceptor(new LoginInterceptor()).excludePathPatterns(pathPatterns);
+        registry.addInterceptor(new LoginInterceptor())
+                .excludePathPatterns("/css/*", "/login", "/error", "/registration");
     }
 
     @Bean(initMethod="initData")

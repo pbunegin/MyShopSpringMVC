@@ -13,4 +13,6 @@ public interface UserService {
     void updateUserProfile(User user);
     
     List<User> getUsers();
+
+    User getUserByLogin(String login);
 }

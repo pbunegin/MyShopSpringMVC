@@ -33,4 +33,9 @@ public class UserServiceImpl implements UserService {
     public List<User> getUsers() {
         return repository.getUsers();
     }
+
+    @Override
+    public User getUserByLogin(String login) {
+        return repository.getUsers().stream().filter(user -> user.getLogin().equals(login)).findFirst().orElse(null);
+    }
 }

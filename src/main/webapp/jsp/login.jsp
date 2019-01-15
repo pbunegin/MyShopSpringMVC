@@ -20,12 +20,7 @@
             <br>
             <input type="submit" value="Войти">
             <p style="color: red;">
-            <%
-            Object param = request.getAttribute("errorLoginPass");
-            if (param!=null){
-            out.println("Неверный логин/пароль");
-            }
-            %>
+            ${errorLoginPassword}
             </p>
         </form>
         <a href="registration">Регистация</a>

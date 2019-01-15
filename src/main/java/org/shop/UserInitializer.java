@@ -15,12 +15,14 @@ public class UserInitializer {
         user = new User();
         user.setFirstName("Ivan");
         user.setLastName("Ivanov");
+        user.setLogin("ivan");
         user.setPassword("111");
         userService.registerUser(user);
         
         user = new User();
         user.setFirstName("Petr");
         user.setLastName("Petrov");
+        user.setLogin("petr");
         user.setPassword("222");
         userService.registerUser(user);
     }
