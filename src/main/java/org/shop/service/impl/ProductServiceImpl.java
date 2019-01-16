@@ -1,6 +1,7 @@
 package org.shop.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.shop.data.Category;
 import org.shop.service.ProductService;
@@ -27,7 +28,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getProductsByName(String name) {
-        return repository.getProductsByName(name);
+        return repository.getProducts().stream().filter(product -> product.getProductName().equals(name)).collect(Collectors.toList());
     }
 
     @Override

@@ -13,15 +13,16 @@ public class UserInitializer {
         User user = null;
         
         user = new User();
-        user.setFirstName("Ivan");
-        user.setLastName("Ivanov");
+        user.setFirstName("Иван");
+        user.setLastName("Иванов");
         user.setLogin("ivan");
         user.setPassword("111");
+        user.setRole("admin");
         userService.registerUser(user);
         
         user = new User();
-        user.setFirstName("Petr");
-        user.setLastName("Petrov");
+        user.setFirstName("Петр");
+        user.setLastName("Петров");
         user.setLogin("petr");
         user.setPassword("222");
         userService.registerUser(user);

@@ -6,6 +6,7 @@ import org.shop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -20,9 +21,9 @@ public class MainController {
     private UserService userService;
 
     @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
-    public String checkLogin(HttpSession session, Model model) {
-        String fullName = (String) session.getAttribute("user");
-        if (fullName == null)
+    public String index(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        if (user == null)
             return "redirect:login";
         model.addAttribute("products", productService.getCategories());
         return "index";
@@ -35,7 +36,7 @@ public class MainController {
         if (login != null || password != null) {
             User user = userService.getUserByLogin(login);
             if (user != null && user.getPassword().equals(password)) {
-                session.setAttribute("user", user.getFirstName() + " " + user.getLastName());
+                session.setAttribute("user", user);
                 session.removeAttribute("errorLoginPassword");
                 return "redirect:index";
             } else {
@@ -46,23 +47,18 @@ public class MainController {
     }
 
     @RequestMapping(value = "/registration")
-    public String registration(@RequestParam Map<String, String> parameters, HttpSession session) {
-        if (parameters.size() == 0) {
+    public String registration(@Validated User user, HttpSession session) {
+        if (user.getLogin() == null) {
             return "registration";
         }
-        User user = new User();
-        user.setFirstName(parameters.get("firstName"));
-        user.setLastName(parameters.get("lastName"));
-        user.setLogin(parameters.get("login"));
-        user.setPassword(parameters.get("password"));
         userService.registerUser(user);
-        session.setAttribute("user", user.getFirstName() + " " + user.getLastName());
+        session.setAttribute("user", user);
         return "redirect:index";
     }
 
     @RequestMapping(value = "/logout")
     public String logout(HttpSession session) {
-        session.removeAttribute("user");
+        session.invalidate();
         return "redirect:login";
     }
 

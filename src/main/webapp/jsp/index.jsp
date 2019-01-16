@@ -22,8 +22,6 @@
             </a>
             <form action="" id="searchProd"></form>
             <input id="searchField" type="search" placeholder="Поиск..." style='width: 30%;' form="searchProd">
-            <!-- <input type="submit" value="Поиск" form="searchProd"> -->
-
         </div>
         <div class="poupSearchProducts" id="searchProducts">
             <!--Продукты в поиске-->
@@ -31,6 +29,76 @@
     </div>
 </div>
 
+<c:if test = "${user.role eq 'admin'}">
+<div class="popupMenu" id="popup3">
+    <div class="popupContent">
+        <div class="popupHeader clearfix">
+        Редактирование товара
+            <a href="javascript:editHide()">
+                <img class="imgSearch" src="img/close.png">
+            </a>
+        </div>
+        <div class="poupEditProducts" id="editProducts">
+
+            <table>
+                <c:forEach var = "category" items = "${products}">
+
+            			<c:forEach var = "product" items = "${category.products}">
+            				<tr>
+            				    <td>${product.id}</td>
+            				    <td>${category.categoryName}</td>
+            				    <td>${product.productName}</td>
+            				    <td>${product.price}</td>
+            				    <td><img src="${product.imgUrl}" value="logoButton" width="50px"></td>
+            				    <td>
+            				        <c:forEach var = "charact" items = "${product.characteristic}">
+                                    ${charact.key}: ${charact.value};
+                                    </c:forEach>
+                                </td>
+            				    <td align="right"><img class="editProduct" value="editProduct" src="img/edit.png"></td>
+            				    <td align="right"><img class="removeProduct" value="removeProduct" src="img/removeFromBasket.png"></td>
+            				</tr>
+            			</c:forEach>
+
+                </c:forEach>
+            </table>
+        </div>
+        <div class="popupFooter">
+            <form action="login" method="post" id = "editForm"></form>
+            <table>
+                <tr>
+                    <td rowspan="3" style="width:10%;">
+                        <button form = "editForm" value = "img" style="width:100%;">
+                            <img src="prodImg/AMD_A4-6300_OEM.jpg" value="logoButton" style="width:100px;">
+                        </button>
+                    </td>
+                    <td style="width:30%;">
+                        <input type="text" name="categoryName" placeholder="Наименование категории" required value = "категория" form = "editForm">
+                    </td>
+                    <td colspan="2" style="width:50%;">
+                        <input type="text" name="productName" placeholder="Наименование товара" required value = "наименование" form = "editForm">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="width:100%;">
+                        <input type="text" name="characteristic" placeholder="Характеристики" required value = "описание_дрмднгмдндрорломврто" form = "editForm">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    ид-468252
+                    </td>
+                    <td align="right">
+                        <input type="text" name="price" placeholder="Цена" required value = "10000" form = "editForm" style="width:50px;">
+                    </td>
+                    <td align="right"><button class="placeOrder">Сохранить</button></td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+</div>
+</c:if>
 
 <div class="popupMenu" id="popup1">
     <div class="popupContent">
@@ -69,7 +137,12 @@
         <a href="logout">
             <img class="imgLogout" value="Поиск" src="img/logout.png">
         </a>
-        <div class="username" id="username">${user}</div>
+        <div class="username" id="username">${user.firstName} ${user.lastName}</div>
+        <c:if test = "${user.role eq 'admin'}">
+            <a href="javascript:editShow()">
+                <div>edit product</div>
+            </a>
+        </c:if>
     </div>
     <div class="search">
         <a href="javascript:searchShow()">

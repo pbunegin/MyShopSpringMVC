@@ -14,7 +14,7 @@
 <body>
     <div class="login">
         <form action="login" method="post">
-            <input type="text" name="login" placeholder="Имя пользователя" required></label>
+            <input type="text" name="login" placeholder="Имя пользователя" required>
             <br>
             <input type="password" name="password" placeholder="Пароль" required>
             <br>

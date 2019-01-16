@@ -11,8 +11,6 @@ public interface ProductsRepository {
     
     List<Product> getProducts();
     
-    List<Product> getProductsByName(String name);
-    
     int createProduct(Product product);
     
     void updateProduct(Product product);

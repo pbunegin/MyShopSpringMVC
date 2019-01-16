@@ -8,6 +8,7 @@ public class User {
     private String lastName;
     private String password;
     private String login;
+    private String role = "user";
     private List<Product> basket;
 
     public String getFirstName() {
@@ -40,6 +41,14 @@ public class User {
 
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public List<Product> getBasket() {

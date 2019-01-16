@@ -3,32 +3,11 @@
 $(document).ready(function () {
     // createContent();
 
-//    let loginPassword = location.href.split("?")[1];
-//    let username = document.getElementById("username");
-//
-//    if (location.href.split("?")[0].endsWith('index.html')) {
-//        if (!loginPassword) {
-//            logout();
-//        }
-//        let login;
-//        loginPassword.split("&").forEach(pair => {
-//            if (pair.split("=")[0] == 'login') {
-//                login = pair.split("=")[1];
-//            }
-//        });
-//        username.innerText = login;
-//    }
-
     $('.addToBasket').on('click', addToBasket);
     $('.content .product').children().not('.addToBasket').on('click', productShow);
     $('#searchField').on('input', searchOnSite);
+    $('#registration').on('submit', checkPass);
 });
-
-// $('.imgLogout').on('click', logout);
-
-function logout() {
-    location.replace("login.html");
-}
 
 //__________________________
 
@@ -41,14 +20,14 @@ function checkPass() {
     }
     else {
         if (password != secondPassword) {
-            bad = "В полях 'Пароль' комбинации символов не совпадают";
+            bad = "Пароли не совпадают";
         }
     }
     if (bad != "") {
         $('#secondPassword')
             .css("background", "#ffcab2");
         alert(bad);
-        return false;
+        return false
     }
 }
 
@@ -174,6 +153,14 @@ function searchHide() {
     $("#popup2").hide();
     $("#searchProducts").empty();
     $("#searchField").val('');
+}
+
+function editShow() {
+    $("#popup3").show();
+}
+
+function editHide() {
+    $("#popup3").hide();
 }
 
 function searchOnSite() {

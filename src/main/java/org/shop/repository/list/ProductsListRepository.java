@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Repository
 public class ProductsListRepository implements ProductsRepository {
@@ -23,11 +22,6 @@ public class ProductsListRepository implements ProductsRepository {
         List<Product> result = new ArrayList<>();
         categories.forEach(category -> result.addAll(category.getProducts()));
         return result;
-    }
-
-    @Override
-    public List<Product> getProductsByName(String name) {
-        return getProducts().stream().filter(product -> product.getProductName().equals(name)).collect(Collectors.toList());
     }
 
     @Override

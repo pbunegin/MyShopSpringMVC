@@ -166,6 +166,14 @@ input{
     z-index: 5;
 }
 
+.editProduct,
+.removeProduct{
+    max-height: 40px;
+    margin-right: 5px;
+    cursor:pointer;
+    z-index: 5;
+}
+
 
 .footer{
     position: absolute;
@@ -206,7 +214,9 @@ input{
     height: max-content;
 }
 
-.poupBasketProducts{
+.poupBasketProducts,
+.poupSearchProducts,
+.poupEditProducts{
     border: 1px solid gray;
     overflow: auto;
     min-height: 400px;
@@ -226,11 +236,6 @@ input{
 }
 
 .poupSearchProducts{
-    border: 1px solid gray;
-    overflow: auto;
-    min-height: 400px;
-    max-height: 500px;
-    background-color: rgb(230, 230, 230);
     display: flex;
     flex-flow: wrap;
 }
@@ -252,4 +257,25 @@ input{
     font-weight: bold;
     border-radius: 10px;
     outline: none;
+}
+
+.poupEditProducts table,
+.poupEditProducts tr{
+    border-collapse: collapse;
+    border: 2px solid lightgrey;
+    padding: 0px 10px;
+}
+
+.popupFooter table,
+.poupEditProducts table{
+    table-layout: fixed;
+    border-collapse: collapse;
+    width:100%;
+}
+
+.popupFooter input{
+    width:100%;
+    font-size: 14px;
+    margin: 5px;
+    padding: 2px 5px;
 }
