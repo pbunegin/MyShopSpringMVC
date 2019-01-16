@@ -67,31 +67,31 @@
             <form action="login" method="post" id = "editForm"></form>
             <table>
                 <tr>
-                    <td rowspan="3" style="width:10%;">
-                        <button form = "editForm" value = "img" style="width:100%;">
-                            <img src="prodImg/AMD_A4-6300_OEM.jpg" value="logoButton" style="width:100px;">
+                    <td rowspan="3">
+                        <button form = "editForm" value = "img">
+                            <img src="prodImg/AMD_A4-6300_OEM.jpg" value="logoButton" >
                         </button>
                     </td>
-                    <td style="width:30%;">
+                    <td>
                         <input type="text" name="categoryName" placeholder="Наименование категории" required value = "категория" form = "editForm">
                     </td>
-                    <td colspan="2" style="width:50%;">
+                    <td colspan="2">
                         <input type="text" name="productName" placeholder="Наименование товара" required value = "наименование" form = "editForm">
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="3" style="width:100%;">
+                    <td colspan="3">
                         <input type="text" name="characteristic" placeholder="Характеристики" required value = "описание_дрмднгмдндрорломврто" form = "editForm">
                     </td>
                 </tr>
                 <tr>
                     <td>
-                    ид-468252
+                        <input type="text" name="id" placeholder="ID" required value = "ид-468252" form = "editForm" readonly>
                     </td>
                     <td align="right">
-                        <input type="text" name="price" placeholder="Цена" required value = "10000" form = "editForm" style="width:50px;">
+                        <input type="text" name="price" placeholder="Цена" required value = "10000" form = "editForm">
                     </td>
-                    <td align="right"><button class="placeOrder">Сохранить</button></td>
+                    <td align="right"><button class="placeOrder" form = "editForm" type="submit">Сохранить</button></td>
                 </tr>
             </table>
 
@@ -166,7 +166,7 @@
 			<c:forEach var = "product" items = "${category.products}">
 				<div class="product" id= "${product.id}">
                     <div class="logo">
-                        <img src="${product.imgUrl}" value="logoButton" width="150px">
+                        <img src="${product.imgUrl}" value="logoButton">
                         <div class="productName">${product.productName}</div>
                     </div>
                     <div class="infoProduct">
