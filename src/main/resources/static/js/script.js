@@ -195,11 +195,11 @@ function searchOnSite() {
 }
 
 function sendEditForm() {
-        var form_data = $(this).serialize();
+        let form_data = $(this).serializeArray().reduce(function(a, x) { a[x.name] = x.value; return a; }, {});
         $.ajax({
-        type: "POST",
-        contentType: 'json',
-        url: "edit",
-        data: form_data,
-
+            type: "POST",
+            contentType: 'json',
+            url: "edit",
+            data: JSON.stringify(form_data)
+        });
 }
