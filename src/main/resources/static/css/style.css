@@ -119,6 +119,9 @@ input{
     justify-content: space-around;
     border-radius: 10px;
 }
+
+.editProductDB,
+.removeProductDB,
 .content .logo:hover,
 .content .infoProduct:hover{
     cursor: pointer;
@@ -171,8 +174,8 @@ input{
     z-index: 5;
 }
 
-.editProduct,
-.removeProduct{
+.editProductDB,
+.removeProductDB{
     max-height: 40px;
     margin-right: 5px;
     cursor:pointer;

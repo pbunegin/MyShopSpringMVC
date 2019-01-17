@@ -6,11 +6,9 @@ import org.shop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.Map;
 
 @Controller
 public class MainController {
@@ -47,7 +45,7 @@ public class MainController {
     }
 
     @RequestMapping(value = "/registration")
-    public String registration(@Validated User user, HttpSession session) {
+    public String registration(@ModelAttribute User user, HttpSession session) {
         if (user.getLogin() == null) {
             return "registration";
         }

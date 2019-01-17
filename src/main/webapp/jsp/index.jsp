@@ -50,13 +50,9 @@
             				    <td>${product.productName}</td>
             				    <td>${product.price}</td>
             				    <td><img src="${product.imgUrl}" value="logoButton" width="50px"></td>
-            				    <td>
-            				        <c:forEach var = "charact" items = "${product.characteristic}">
-                                    ${charact.key}: ${charact.value};
-                                    </c:forEach>
-                                </td>
-            				    <td align="right"><img class="editProduct" value="editProduct" src="img/edit.png"></td>
-            				    <td align="right"><img class="removeProduct" value="removeProduct" src="img/removeFromBasket.png"></td>
+            				    <td><c:forEach var = "charact" items = "${product.characteristic}">${charact.key}: ${charact.value};</c:forEach></td>
+            				    <td align="right"><img class="editProductDB" value="editProduct" src="img/edit.png"></td>
+            				    <td align="right"><img class="removeProductDB" value="removeProduct" src="img/removeFromBasket.png"></td>
             				</tr>
             			</c:forEach>
 
@@ -64,11 +60,11 @@
             </table>
         </div>
         <div class="popupFooter">
-            <form action="login" method="post" id = "editForm"></form>
+            <form action="edit" method="post" id = "editForm"></form>
             <table>
                 <tr>
                     <td rowspan="3">
-                        <button form = "editForm" value = "img">
+                        <button form = "editForm" value = "imgUrl">
                             <img src="prodImg/AMD_A4-6300_OEM.jpg" value="logoButton" >
                         </button>
                     </td>
@@ -91,7 +87,7 @@
                     <td align="right">
                         <input type="text" name="price" placeholder="Цена" required value = "10000" form = "editForm">
                     </td>
-                    <td align="right"><button class="placeOrder" form = "editForm" type="submit">Сохранить</button></td>
+                    <td align="right"><button class="placeOrder sendEditForm" form = "editForm" type="submit">Сохранить</button></td>
                 </tr>
             </table>
 

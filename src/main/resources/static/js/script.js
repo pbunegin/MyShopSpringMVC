@@ -7,6 +7,10 @@ $(document).ready(function () {
     $('.content .product').children().not('.addToBasket').on('click', productShow);
     $('#searchField').on('input', searchOnSite);
     $('#registration').on('submit', checkPass);
+    $('.editProductDB').on('click', editProductDB);
+    $('.removeProductDB').on('click', removeProductDB);
+    $('#editForm').submit(sendEditForm);
+
 });
 
 //__________________________
@@ -163,6 +167,19 @@ function editHide() {
     $("#popup3").hide();
 }
 
+function editProductDB(){
+    $("#popup3 [value = 'img'] img").attr('src', $(this).closest('tr').find('td:eq(4) [value="logoButton"]').attr('src'));
+    $("#popup3 [name='categoryName']").val($(this).closest('tr').find('td:eq(1)').text());
+    $("#popup3 [name='productName']").val($(this).closest('tr').find('td:eq(2)').text());
+    $("#popup3 [name='characteristic']").val($(this).closest('tr').find('td:eq(5)').text());
+    $("#popup3 [name='id']").val($(this).closest('tr').find('td:eq(0)').text());
+    $("#popup3 [name='price']").val($(this).closest('tr').find('td:eq(3)').text());
+}
+
+function removeProductDB(){
+
+}
+
 function searchOnSite() {
     $('#searchProducts').empty();
     let searchStr = this.value.toLowerCase();
@@ -175,4 +192,14 @@ function searchOnSite() {
             }
         });
     });
+}
+
+function sendEditForm() {
+        var form_data = $(this).serialize();
+        $.ajax({
+        type: "POST",
+        contentType: 'json',
+        url: "edit",
+        data: form_data,
+
 }
