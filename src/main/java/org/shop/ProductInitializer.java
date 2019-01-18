@@ -60,7 +60,7 @@ public class ProductInitializer {
                         product.setPrice(Double.parseDouble((String) productObj.get(key)));
                         continue;
                     }
-                    product.setCharacteristic((String) key, (String) productObj.get(key));
+                    product.setCharacteristic(key + ": " + productObj.get(key) + ";");
                 }
                 product.setImgUrl();
                 products.add(product);

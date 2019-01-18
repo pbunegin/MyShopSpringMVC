@@ -9,7 +9,9 @@ $(document).ready(function () {
     $('#registration').on('submit', checkPass);
     $('.editProductDB').on('click', editProductDB);
     $('.removeProductDB').on('click', removeProductDB);
-    $('#editForm').submit(sendEditForm);
+    $('#uploadImgButton').on('click', uploadImgButton);
+    $('#uploadImg').on('change', changeUploadImgButton);
+//    $('#editForm').submit(sendEditForm);
 
 });
 
@@ -168,7 +170,8 @@ function editHide() {
 }
 
 function editProductDB(){
-    $("#popup3 [value = 'img'] img").attr('src', $(this).closest('tr').find('td:eq(4) [value="logoButton"]').attr('src'));
+    $("#popup3 [value = 'logoButton']").attr('src', $(this).closest('tr').find('td:eq(4) [value="logoButton"]').attr('src'));
+//    $("#popup3 [value = 'img']") = ('src', $(this).closest('tr').find('td:eq(4) [value="logoButton"]').attr('src'));
     $("#popup3 [name='categoryName']").val($(this).closest('tr').find('td:eq(1)').text());
     $("#popup3 [name='productName']").val($(this).closest('tr').find('td:eq(2)').text());
     $("#popup3 [name='characteristic']").val($(this).closest('tr').find('td:eq(5)').text());
@@ -194,12 +197,44 @@ function searchOnSite() {
     });
 }
 
+//let product = new Product();
+
+function fillProduct(data){
+    product[data.name]
+}
+
 function sendEditForm() {
-        let form_data = $(this).serializeArray().reduce(function(a, x) { a[x.name] = x.value; return a; }, {});
-        $.ajax({
-            type: "POST",
-            contentType: 'json',
-            url: "edit",
-            data: JSON.stringify(form_data)
-        });
+//        let form_data = $(this).serializeArray().reduce(function(a, x) { a[x.name] = x.value; return a; }, {});
+//        form_data[img]=$(this)[0];
+//        $.ajax({
+//            type: "POST",
+//            processData: false,
+//            contentType: false,
+//            cache: false,
+//            url: "edit",
+//            data: JSON.stringify(form_data)
+//        });
+//    e.preventDefault();  // <--------stops the form submission
+//    var fd = new FormData($(this)[0]);
+//        fd.append(form_data);
+//
+//    $.ajax({
+//      url: "/upload",
+//      type: "POST",
+//      data: fd,
+//      enctype: 'multipart/form-data',
+//      processData: false,
+//      contentType: false,
+//      cache: false,
+//    });
+}
+
+function uploadImgButton(){
+    $('#uploadImg').click();
+}
+
+function changeUploadImgButton(){
+    let reader = new FileReader();
+    reader.onload = function(e) { $("#uploadImgButton [value = 'logoButton']").attr('src', e.target.result); }
+    reader.readAsDataURL(this.files[0]);
 }

@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 
 <!DOCTYPE HTML>
 
@@ -50,7 +51,7 @@
             				    <td>${product.productName}</td>
             				    <td>${product.price}</td>
             				    <td><img src="${product.imgUrl}" value="logoButton" width="50px"></td>
-            				    <td><c:forEach var = "charact" items = "${product.characteristic}">${charact.key}: ${charact.value};</c:forEach></td>
+            				    <td><c:forEach var = "charact" items = "${fn:split(product.characteristic, ';')}">${charact};<br></c:forEach></td>
             				    <td align="right"><img class="editProductDB" value="editProduct" src="img/edit.png"></td>
             				    <td align="right"><img class="removeProductDB" value="removeProduct" src="img/removeFromBasket.png"></td>
             				</tr>
@@ -60,13 +61,12 @@
             </table>
         </div>
         <div class="popupFooter">
-            <form action="edit" method="post" id = "editForm"></form>
+            <form action="edit" method="post" id = "editForm" enctype="multipart/form-data"></form>
             <table>
                 <tr>
                     <td rowspan="3">
-                        <button form = "editForm" value = "imgUrl">
-                            <img src="prodImg/AMD_A4-6300_OEM.jpg" value="logoButton" >
-                        </button>
+                        <button id = "uploadImgButton"><img src="prodImg/AMD_A4-6300_OEM.jpg" value="logoButton"></button>
+                        <input type="file" name="uploadImg" form = "editForm" id = "uploadImg">
                     </td>
                     <td>
                         <input type="text" name="categoryName" placeholder="Наименование категории" required value = "категория" form = "editForm">
@@ -168,9 +168,7 @@
                     <div class="infoProduct">
                         <div class="characteristics">
                             <ul>
-                                <c:forEach var = "charact" items = "${product.characteristic}">
-                                    <li>${charact.key}: ${charact.value}</li>
-                                </c:forEach>
+            				    <c:forEach var = "charact" items = "${fn:split(product.characteristic, ';')}"><li>${charact};</li></c:forEach>
                             </ul>
                         </div>
 						<div class="price">${product.price}</div>

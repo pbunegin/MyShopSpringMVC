@@ -55,4 +55,9 @@ public class ProductServiceImpl implements ProductService {
     public List<Category> getCategories() {
         return repository.getCategories();
     }
+
+    @Override
+    public Category getCategoryByName(String categoryName) {
+        return getCategories().stream().filter(category -> category.getCategoryName().equals(categoryName)).findFirst().orElse(null);
+    }
 }

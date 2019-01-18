@@ -22,4 +22,6 @@ public interface ProductService {
     void createCategory(Category category);
 
     List<Category> getCategories();
+
+    Category getCategoryByName(String categoryName);
 }

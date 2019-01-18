@@ -14,7 +14,7 @@ public class ProductsListRepository implements ProductsRepository {
 
     @Override
     public Product getProductById(int productId) {
-        return getProducts().stream().filter(product -> product.getId()==productId).findFirst().get();
+        return getProducts().stream().filter(product -> product.getId()==productId).findFirst().orElse(null);
     }
 
     @Override

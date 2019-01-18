@@ -1,5 +1,6 @@
 package org.shop.controllers;
 
+import org.shop.data.Product;
 import org.shop.data.User;
 import org.shop.service.ProductService;
 import org.shop.service.UserService;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 
@@ -59,5 +61,4 @@ public class MainController {
         session.invalidate();
         return "redirect:login";
     }
-
 }

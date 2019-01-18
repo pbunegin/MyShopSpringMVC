@@ -1,13 +1,10 @@
 package org.shop.data;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class Product {
     private String productName;
     private int id;
     private double price;
-    private Map<String, String> characteristic = new HashMap<>();
+    private String characteristic = "";
     private String imgUrl;
 
     public String getProductName() {
@@ -34,12 +31,12 @@ public class Product {
         this.price = price;
     }
 
-    public Map<String, String> getCharacteristic() {
+    public String getCharacteristic() {
         return characteristic;
     }
 
-    public void setCharacteristic(String name, String value) {
-        this.characteristic.put(name, value);
+    public void setCharacteristic(String characteristic) {
+        this.characteristic += characteristic;
     }
 
     public String getImgUrl() {
