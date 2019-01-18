@@ -170,7 +170,7 @@ function editHide() {
 }
 
 function editProductDB(){
-    $("#popup3 [value = 'logoButton']").attr('src', $(this).closest('tr').find('td:eq(4) [value="logoButton"]').attr('src'));
+    $("#uploadImgButton [value = 'logoButton']").attr('src', $(this).closest('tr').find('td:eq(4) [value="logoButton"]').attr('src'));
 //    $("#popup3 [value = 'img']") = ('src', $(this).closest('tr').find('td:eq(4) [value="logoButton"]').attr('src'));
     $("#popup3 [name='categoryName']").val($(this).closest('tr').find('td:eq(1)').text());
     $("#popup3 [name='productName']").val($(this).closest('tr').find('td:eq(2)').text());

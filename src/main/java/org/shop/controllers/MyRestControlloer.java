@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 public class MyRestControlloer {
@@ -22,38 +24,33 @@ public class MyRestControlloer {
     private UserService userService;
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public Product edit(@ModelAttribute Product product, @RequestParam String categoryName, @RequestParam("uploadImg") MultipartFile file){
-        product.setImgUrl();
-        Product productFromRepository = productService.getProductById(product.getId());
-        if (productFromRepository != null){
-            productFromRepository = product;
-        } else {
-            Category category = productService.getCategoryByName(categoryName);
-            if (category != null){
-                category.getProducts().add(product);
-            } else {
-                category = new Category(categoryName);
-                category.getProducts().add(product);
-                productService.createCategory(category);
-            }
-        }
+    public Map<String, Object> edit(@ModelAttribute Product product, @RequestParam String categoryName,
+                                    @RequestParam("uploadImg") MultipartFile file){
+        productService.createOrUpdateProduct(categoryName, product);
+        saveFile(product.getProductName(), file);
+        Map<String, Object> result =  new HashMap<>();
+        result.put("categoryName", categoryName);
+        result.put("product", product);
+        return result;
+
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public String upload(@ModelAttribute Product product){
+        productService.deleteProduct(product.getId());
+        return "dxfghdf";
+
+    }
+
+    private void saveFile(String productName, MultipartFile file) {
         if (!file.isEmpty()) {
             try {
-                Files.write(Paths.get("src\\main\\resources\\static\\prodImg\\" + product.getProductName().replaceAll("\\s", "_") + ".jpg"),
+                Files.write(Paths.get("target/classes/static/prodImg/" + productName.replaceAll("\\s", "_") + ".jpg"),
                         file.getBytes(), StandardOpenOption.CREATE);
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
         } else {
         }
-        return product;
-
-    }
-
-    @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    public String upload(@RequestParam("file") MultipartFile file){
-
-        return "dxfghdf";
-
     }
 }

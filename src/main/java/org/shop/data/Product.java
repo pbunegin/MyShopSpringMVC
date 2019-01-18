@@ -1,8 +1,10 @@
 package org.shop.data;
 
+import java.util.Objects;
+
 public class Product {
     private String productName;
-    private int id;
+    private long id;
     private double price;
     private String characteristic = "";
     private String imgUrl;
@@ -15,11 +17,11 @@ public class Product {
         this.productName = productName;
     }
 
-    public int getId() {
+    public long getId() {
         return this.id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -45,5 +47,23 @@ public class Product {
 
     public void setImgUrl() {
         this.imgUrl = "/prodImg/" + this.getProductName().replaceAll("\\s","_") + ".jpg";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return id == product.id &&
+                Double.compare(product.price, price) == 0 &&
+                Objects.equals(productName, product.productName) &&
+                Objects.equals(characteristic, product.characteristic) &&
+                Objects.equals(imgUrl, product.imgUrl);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(productName, id, price, characteristic, imgUrl);
     }
 }

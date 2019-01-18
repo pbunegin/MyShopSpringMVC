@@ -7,13 +7,13 @@ import org.shop.data.Product;
 
 public interface ProductService {
     
-    Product getProductById(int productId);
+    Product getProductById(long id);
 
     List<Product> getProducts();
     
     List<Product> getProductsByName(String name);
     
-    int createProduct(Product product);
+    long createProduct(Product product);
     
     void updateProduct(Product product);
     
@@ -24,4 +24,6 @@ public interface ProductService {
     List<Category> getCategories();
 
     Category getCategoryByName(String categoryName);
+
+    Product createOrUpdateProduct(String categoryName, Product product);
 }

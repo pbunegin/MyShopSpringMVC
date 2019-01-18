@@ -17,7 +17,7 @@ public class ProductServiceImpl implements ProductService {
     private ProductsRepository repository;
 
     @Override
-    public Product getProductById(int id) {
+    public Product getProductById(long id) {
         return repository.getProductById(id);
     }
 
@@ -32,7 +32,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public int createProduct(Product product) {
+    public long createProduct(Product product) {
         return repository.createProduct(product);
     }
 
@@ -59,5 +59,16 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Category getCategoryByName(String categoryName) {
         return getCategories().stream().filter(category -> category.getCategoryName().equals(categoryName)).findFirst().orElse(null);
+    }
+
+    @Override
+    public Product createOrUpdateProduct(String categoryName, Product product) {
+        product.setImgUrl();
+        Product productFromRepository = getProductById(product.getId());
+        if (productFromRepository != null){
+            productFromRepository = product;
+        } else {
+        }
+        return product;
     }
 }

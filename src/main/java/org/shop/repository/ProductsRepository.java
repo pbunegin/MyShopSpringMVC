@@ -7,11 +7,11 @@ import org.shop.data.Product;
 
 public interface ProductsRepository {
     
-    Product getProductById(int productId);
+    Product getProductById(long productId);
     
     List<Product> getProducts();
     
-    int createProduct(Product product);
+    long createProduct(String categoryName, Product product);
     
     void updateProduct(Product product);
     
