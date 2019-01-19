@@ -1,6 +1,5 @@
 package org.shop.controllers;
 
-import org.shop.data.Category;
 import org.shop.data.Product;
 import org.shop.service.ProductService;
 import org.shop.service.UserService;
@@ -12,8 +11,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 public class MyRestControlloer {
@@ -23,15 +20,11 @@ public class MyRestControlloer {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public Map<String, Object> edit(@ModelAttribute Product product, @RequestParam String categoryName,
-                                    @RequestParam("uploadImg") MultipartFile file){
-        productService.createOrUpdateProduct(categoryName, product);
-        saveFile(product.getProductName(), file);
-        Map<String, Object> result =  new HashMap<>();
-        result.put("categoryName", categoryName);
-        result.put("product", product);
-        return result;
+    @RequestMapping(value = "/edit", method = RequestMethod.PUT)
+    public Product edit(@ModelAttribute Product product, @RequestParam("uploadImg") MultipartFile file){
+        productService.createOrUpdateProduct(product);
+        saveFile(product.getId(), file);
+        return product;
 
     }
 
@@ -42,10 +35,12 @@ public class MyRestControlloer {
 
     }
 
-    private void saveFile(String productName, MultipartFile file) {
+    private void saveFile(long id, MultipartFile file) {
         if (!file.isEmpty()) {
             try {
-                Files.write(Paths.get("target/classes/static/prodImg/" + productName.replaceAll("\\s", "_") + ".jpg"),
+                Files.write(Paths.get("target/classes/static/prodImg/" + id + ".jpg"),
+                        file.getBytes(), StandardOpenOption.CREATE);
+                Files.write(Paths.get("resources/static/prodImg/" + id + ".jpg"),
                         file.getBytes(), StandardOpenOption.CREATE);
             } catch (IOException e) {
                 System.out.println(e.getMessage());

@@ -4,6 +4,7 @@ import java.util.Objects;
 
 public class Product {
     private String productName;
+    private String categoryName;
     private long id;
     private double price;
     private String characteristic = "";
@@ -15,6 +16,14 @@ public class Product {
 
     public void setProductName(String productName) {
         this.productName = productName;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public long getId() {
@@ -46,7 +55,7 @@ public class Product {
     }
 
     public void setImgUrl() {
-        this.imgUrl = "/prodImg/" + this.getProductName().replaceAll("\\s","_") + ".jpg";
+        this.imgUrl = "/prodImg/" + this.getId() + ".jpg";
     }
 
     @Override

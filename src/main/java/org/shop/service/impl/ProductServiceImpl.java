@@ -3,10 +3,9 @@ package org.shop.service.impl;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.shop.data.Category;
 import org.shop.service.ProductService;
 import org.shop.data.Product;
-import org.shop.repository.ProductsRepository;
+import org.shop.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class ProductServiceImpl implements ProductService {
 
     @Autowired
-    private ProductsRepository repository;
+    private ProductRepository repository;
 
     @Override
     public Product getProductById(long id) {
@@ -42,33 +41,17 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void deleteProduct(Long productId) {
+    public void deleteProduct(long productId) {
         repository.deleteProduct(productId);
     }
 
     @Override
-    public void createCategory(Category category) {
-        repository.createCategory(category);
-    }
-
-    @Override
-    public List<Category> getCategories() {
-        return repository.getCategories();
-    }
-
-    @Override
-    public Category getCategoryByName(String categoryName) {
-        return getCategories().stream().filter(category -> category.getCategoryName().equals(categoryName)).findFirst().orElse(null);
-    }
-
-    @Override
-    public Product createOrUpdateProduct(String categoryName, Product product) {
-        product.setImgUrl();
-        Product productFromRepository = getProductById(product.getId());
-        if (productFromRepository != null){
-            productFromRepository = product;
+    public void createOrUpdateProduct(Product product) {
+        Product product1 = getProductById(product.getId());
+        if (product1 == null){
+            createProduct(product);
         } else {
+            updateProduct(product);
         }
-        return product;
     }
 }

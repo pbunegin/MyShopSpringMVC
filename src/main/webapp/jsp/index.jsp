@@ -44,10 +44,10 @@
             <table>
                 <c:forEach var = "category" items = "${products}">
 
-            			<c:forEach var = "product" items = "${category.products}">
+            			<c:forEach var = "product" items = "${category.value}">
             				<tr>
-            				    <td>${product.id}</td>
-            				    <td>${category.categoryName}</td>
+            				    <td data-editId=${product.id}>${product.id}</td>
+            				    <td>${category.key}</td>
             				    <td>${product.productName}</td>
             				    <td>${product.price}</td>
             				    <td><img src="${product.imgUrl}" value="logoButton" width="50px"></td>
@@ -61,32 +61,31 @@
             </table>
         </div>
         <div class="popupFooter">
-            <form action="edit" method="post" id = "editForm" enctype="multipart/form-data"></form>
+            <form id = "editForm"></form>
             <table>
                 <tr>
                     <td rowspan="3">
-                        <button id = "uploadImgButton"><img src="prodImg/AMD_A4-6300_OEM.jpg" value="logoButton"></button>
+                        <button id = "uploadImgButton"><img value="logoButton" alt="загрузить фото"></button>
                         <input type="file" name="uploadImg" form = "editForm" id = "uploadImg">
                     </td>
                     <td>
-                        <input type="text" name="categoryName" placeholder="Наименование категории" required value = "категория" form = "editForm">
+                        <input type="text" name="categoryName" placeholder="Наименование категории" required form = "editForm">
                     </td>
                     <td colspan="2">
-                        <input type="text" name="productName" placeholder="Наименование товара" required value = "наименование" form = "editForm">
+                        <input type="text" name="productName" placeholder="Наименование товара" required form = "editForm">
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        <input type="text" name="characteristic" placeholder="Характеристики" required value = "описание_дрмднгмдндрорломврто" form = "editForm">
+                        <input type="text" name="characteristic" placeholder="Характеристики" required form = "editForm">
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <input type="text" name="id" placeholder="ID" required value = "ид-468252" form = "editForm" readonly>
+                        <input type="text" name="id" placeholder="ID" value="0" required form = "editForm">
+                        <input type="text" name="price" placeholder="Цена" required form = "editForm">
                     </td>
-                    <td align="right">
-                        <input type="text" name="price" placeholder="Цена" required value = "10000" form = "editForm">
-                    </td>
+                    <td align="right"><button class="placeOrder sendEditForm" form = "editForm" type="reset">Создать</button></td>
                     <td align="right"><button class="placeOrder sendEditForm" form = "editForm" type="submit">Сохранить</button></td>
                 </tr>
             </table>
@@ -155,12 +154,12 @@
 </div>
 <div class="content" id="content">
     <c:forEach var = "category" items = "${products}">
-		<div class="category">
-			<div>${category.categoryName}</div>
+		<div class="category" data-category=${category.key}>
+			<div>${category.key}</div>
 		</div>
         <div class="products">
-			<c:forEach var = "product" items = "${category.products}">
-				<div class="product" id= "${product.id}">
+			<c:forEach var = "product" items = "${category.value}">
+				<div class="product" data-id= "${product.id}">
                     <div class="logo">
                         <img src="${product.imgUrl}" value="logoButton">
                         <div class="productName">${product.productName}</div>

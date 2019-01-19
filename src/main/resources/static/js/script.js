@@ -10,8 +10,9 @@ $(document).ready(function () {
     $('.editProductDB').on('click', editProductDB);
     $('.removeProductDB').on('click', removeProductDB);
     $('#uploadImgButton').on('click', uploadImgButton);
+    $('#popup3 [type="reset"]').on('click', resetUploadImgButton);
     $('#uploadImg').on('change', changeUploadImgButton);
-//    $('#editForm').submit(sendEditForm);
+   $('#editForm').submit(sendEditForm);
 
 });
 
@@ -38,35 +39,62 @@ function checkPass() {
 }
 
 //__________________________
-
-function createContent() {
-    data.forEach(category => {
-        let categoryDiv = '<div class="category"><div>' + category.categoryName + '</div></div>';
-        let productsDiv = document.createElement('div');
-        productsDiv.className = "products";
-
-        for (let i = 0; i < category.products.length; i++) {
-            let productDiv = createProduct(category.products[i]);
-            productsDiv.appendChild(productDiv);
+function createOrUpdateProduct(product){
+    let categoryDiv = $('#content').children('[data-category="'+product.categoryName+'"]');
+    let productDiv = $('.products').children('[data-id="'+product.id+'"]');
+    let productForEdit = $('tr').children('[data-editId="'+product.id+'"]');
+    if (productDiv.length == 0){
+        let productsDiv;
+        if (categoryDiv.length == 0){
+            categoryDiv = '<div class="category" data-category="'+product.categoryName+'"><div>'
+                + product.categoryName + '</div></div>';
+            productsDiv = '<div class="products"><div>';
+        } else {
+            productsDiv = $(categoryDiv).next();
         }
-
+        productDiv = createProduct(product);
+        productsDiv.appendChild(productDiv);
         $('#content').append(categoryDiv);
         $('#content').append(productsDiv);
+        $('#editProducts tr').append(createProductForEdit(product));
+    } else {
+        productForEdit.html(createProductForEdit(product));
+        productDiv.html(createProduct(product));
+    }
+}
+
+function createContent(products) {
+    products.forEach(product => {
+        createOrUpdateProduct(product)
     });
 }
 
-function createProduct(product) {
-    let productDiv = document.createElement('div');
-    productDiv.className = "product";
-    productDiv.id = product.id;
+function createProductForEdit(product) {
+    let characteristic = '';
+    product.characteristic.split(';').forEach(charact => {
+        characteristic.concat(charact + ';<br>');
+    });
 
-    productDiv.innerHTML = '<div class="logo"><img src="prodImg/' + product.id +
-        '.jpg" value="logoButton" width="' + window.innerHeight * 0.2 + '">' +
-        '<div class="productName">' + product.productName + '</div>' +
-        '</div><div class="infoProduct"><div class="characteristics">' +
-        '<ul><li>' + product.memory + '</li><li>' + product.frequency +
-        '</li><li>' + product.price + '</li><li>' + product.id + '</li></ul>' +
-        '</div><div class="price">' + product.price + '</div></div>' +
+    let productForEdit = '<td data-editId='+product.id+'>'+product.id+'</td>' +
+        '<td>'+product.categoryName+'</td><td>'+product.productName+'</td><td>'+product.price+'</td>' +
+        '<td><img src="'+product.imgUrl+'" value="logoButton" width="50px"></td>' + '<td>'+ characteristic+'</td>' +
+        '<td align="right"><img class="editProductDB" value="editProduct" src="img/edit.png"></td>' +
+        '<td align="right"><img class="removeProductDB" value="removeProduct" src="img/removeFromBasket.png"></td>';
+    return productForEdit;
+}
+
+
+function createProduct(product) {
+    let characteristic = '';
+    product.characteristic.split(';').forEach(charact => {
+        characteristic.concat('<li>' + charact + '</li>li>');
+    });
+    let productDiv = '<div class="product" data-id= "product.id"></div>';
+
+    productDiv.innerHTML = '<div class="logo"><img src="'+product.imgUrl+'" value="logoButton">' +
+        '<div class="productName">'+product.productName+'</div></div><div class="infoProduct">' +
+        '<div class="characteristics"><ul>' + characteristic + '</ul></div>' +
+        '<div class="price">'+product.price+'</div></div>' +
         '<img class="addToBasket" value="В корзину" src="img/addToBasket.png">' +
         '<img class="removeFromBasket" value="В корзину" src="img/removeFromBasket.png"></div>';
     return productDiv;
@@ -171,7 +199,6 @@ function editHide() {
 
 function editProductDB(){
     $("#uploadImgButton [value = 'logoButton']").attr('src', $(this).closest('tr').find('td:eq(4) [value="logoButton"]').attr('src'));
-//    $("#popup3 [value = 'img']") = ('src', $(this).closest('tr').find('td:eq(4) [value="logoButton"]').attr('src'));
     $("#popup3 [name='categoryName']").val($(this).closest('tr').find('td:eq(1)').text());
     $("#popup3 [name='productName']").val($(this).closest('tr').find('td:eq(2)').text());
     $("#popup3 [name='characteristic']").val($(this).closest('tr').find('td:eq(5)').text());
@@ -197,36 +224,17 @@ function searchOnSite() {
     });
 }
 
-//let product = new Product();
-
-function fillProduct(data){
-    product[data.name]
-}
-
 function sendEditForm() {
-//        let form_data = $(this).serializeArray().reduce(function(a, x) { a[x.name] = x.value; return a; }, {});
-//        form_data[img]=$(this)[0];
-//        $.ajax({
-//            type: "POST",
-//            processData: false,
-//            contentType: false,
-//            cache: false,
-//            url: "edit",
-//            data: JSON.stringify(form_data)
-//        });
-//    e.preventDefault();  // <--------stops the form submission
-//    var fd = new FormData($(this)[0]);
-//        fd.append(form_data);
-//
-//    $.ajax({
-//      url: "/upload",
-//      type: "POST",
-//      data: fd,
-//      enctype: 'multipart/form-data',
-//      processData: false,
-//      contentType: false,
-//      cache: false,
-//    });
+       let data = new FormData(this);
+       $.ajax({
+           type: "PUT",
+           processData: false,
+           contentType: false,
+           url: "edit",
+           data: data,
+           success: createOrUpdateProduct
+       });
+       return false;
 }
 
 function uploadImgButton(){
@@ -237,4 +245,9 @@ function changeUploadImgButton(){
     let reader = new FileReader();
     reader.onload = function(e) { $("#uploadImgButton [value = 'logoButton']").attr('src', e.target.result); }
     reader.readAsDataURL(this.files[0]);
+}
+
+function resetUploadImgButton() {
+    $("#uploadImgButton [value = 'logoButton']").removeAttr('src');
+    $("#popup3 [name='id']").val('0');
 }

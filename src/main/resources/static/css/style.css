@@ -292,6 +292,7 @@ input{
     max-width: 100px;
 }
 
+#popup3 [name="id"],
 #uploadImg{
     display: none;
 }

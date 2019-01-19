@@ -8,9 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class MainController {
@@ -25,10 +28,10 @@ public class MainController {
         User user = (User) session.getAttribute("user");
         if (user == null)
             return "redirect:login";
-        model.addAttribute("products", productService.getCategories());
+        Map<String, List<Product>> products = createMap();
+        model.addAttribute("products", products);
         return "index";
     }
-
 
     @RequestMapping(value = "/login")
     public String login(@RequestParam(required = false) String login,
@@ -60,5 +63,17 @@ public class MainController {
     public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:login";
+    }
+
+    private Map<String, List<Product>> createMap() {
+        Map<String, List<Product>> result = new HashMap<>();
+        for (Product product : productService.getProducts()) {
+            String categoryName = product.getCategoryName();
+            if (result.get(categoryName) == null){
+                result.put(categoryName, new ArrayList<>());
+            }
+            result.get(categoryName).add(product);
+        }
+        return result;
     }
 }
