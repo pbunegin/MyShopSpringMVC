@@ -296,3 +296,16 @@ input{
 #uploadImg{
     display: none;
 }
+
+#basketProducts .product{
+    /*!important;*/
+    width: auto;
+}
+
+#basketProducts .infoProduct{
+    display: flex;
+}
+
+#basketProducts .removeFromBasket{
+    display: initial;
+}

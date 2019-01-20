@@ -55,7 +55,7 @@ public class Product {
     }
 
     public void setImgUrl() {
-        this.imgUrl = "/prodImg/" + this.getId() + ".jpg";
+        this.imgUrl = "/prodImg/" + this.getId() + ".jpg?" + Math.random();
     }
 
     @Override

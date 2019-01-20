@@ -24,10 +24,10 @@ public class LoginInterceptor implements HandlerInterceptor {
         }
 
         String requestURI = request.getRequestURI();
-        if ((requestURI.equals("/edit") || requestURI.equals("/delete"))
+        if ((requestURI.equals("/edit") || requestURI.equals("/remove"))
                 && !user.getRole().equals("admin")){
-            response.sendRedirect("/index");
             response.setStatus(SC_METHOD_NOT_ALLOWED);
+            response.sendRedirect("/index");
             return false;
         }
         return true;

@@ -45,8 +45,8 @@
                 <c:forEach var = "category" items = "${products}">
 
             			<c:forEach var = "product" items = "${category.value}">
-            				<tr>
-            				    <td data-editId=${product.id}>${product.id}</td>
+            				<tr data-edit-id=${product.id}>
+            				    <td>${product.id}</td>
             				    <td>${category.key}</td>
             				    <td>${product.productName}</td>
             				    <td>${product.price}</td>

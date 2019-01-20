@@ -21,6 +21,7 @@ public class MyRestControlloer {
     private UserService userService;
 
     @RequestMapping(value = "/edit", method = RequestMethod.PUT)
+//    produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Product edit(@ModelAttribute Product product, @RequestParam("uploadImg") MultipartFile file){
         productService.createOrUpdateProduct(product);
         saveFile(product.getId(), file);
@@ -28,11 +29,10 @@ public class MyRestControlloer {
 
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public String upload(@ModelAttribute Product product){
-        productService.deleteProduct(product.getId());
-        return "dxfghdf";
-
+    @RequestMapping(value = "/remove", method = RequestMethod.GET)
+    public long remove(@RequestParam("id") long id){
+        productService.deleteProduct(id);
+        return id;
     }
 
     private void saveFile(long id, MultipartFile file) {

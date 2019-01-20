@@ -1,20 +1,29 @@
 // $('.popupMenu .popupContent').css('height',window.innerHeight*0.7);
 
-$(document).ready(function () {
+$(document).ready(setListener);
+
+function setListener() {
     // createContent();
 
-    $('.addToBasket').on('click', addToBasket);
-    $('.content .product').children().not('.addToBasket').on('click', productShow);
+    $(document).on('click', '.addToBasket', addToBasket);
+    $(document).on('click', '.content .product > * :not(.addToBasket)', productShow);
     $('#searchField').on('input', searchOnSite);
     $('#registration').on('submit', checkPass);
-    $('.editProductDB').on('click', editProductDB);
-    $('.removeProductDB').on('click', removeProductDB);
+    $(document).on('click', '.editProductDB', editProductDB);
+    $(document).on('click', '.removeProductDB', removeProductDB);
     $('#uploadImgButton').on('click', uploadImgButton);
     $('#popup3 [type="reset"]').on('click', resetUploadImgButton);
     $('#uploadImg').on('change', changeUploadImgButton);
-   $('#editForm').submit(sendEditForm);
+    $('#editForm').submit(sendEditForm);
+    $(document).on('click', '.removeFromBasket', removeFromBasket);
 
-});
+    // $('.addToBasket').on('click', addToBasket);
+    // $('.content .product').children().not('.addToBasket').on('click', productShow);
+    // $('.editProductDB').on('click', editProductDB);
+    // $('.removeProductDB').on('click', removeProductDB);
+    // $('#uploadImgButton').on('click', uploadImgButton);
+    // $('.removeFromBasket').on('click', removeFromBasket);
+}
 
 //__________________________
 
@@ -39,28 +48,28 @@ function checkPass() {
 }
 
 //__________________________
-function createOrUpdateProduct(product){
-    let categoryDiv = $('#content').children('[data-category="'+product.categoryName+'"]');
-    let productDiv = $('.products').children('[data-id="'+product.id+'"]');
-    let productForEdit = $('tr').children('[data-editId="'+product.id+'"]');
-    if (productDiv.length == 0){
-        let productsDiv;
-        if (categoryDiv.length == 0){
-            categoryDiv = '<div class="category" data-category="'+product.categoryName+'"><div>'
-                + product.categoryName + '</div></div>';
-            productsDiv = '<div class="products"><div>';
-        } else {
-            productsDiv = $(categoryDiv).next();
+function createOrUpdateProduct(product) {
+    let categoryDiv = $('#content').children('[data-category="' + product.categoryName + '"]');
+    let productDiv = $('.products').children('[data-id="' + product.id + '"]');
+    let productDivFromBasket = $('#basketProducts').children('[data-id="' + product.id + '"]');
+    let productForEdit = $('tbody').children('[data-edit-id="' + product.id + '"]');
+    if (!productDiv.length) {
+        let productsDiv = $(categoryDiv).next();
+        if (!categoryDiv.length) {
+            categoryDiv = $('<div class="category" data-category="' + product.categoryName + '"><div>'
+                + product.categoryName + '</div></div>');
+            productsDiv = $('<div class="products">');
+            $('#content').append(categoryDiv).append(productsDiv);
         }
-        productDiv = createProduct(product);
-        productsDiv.appendChild(productDiv);
-        $('#content').append(categoryDiv);
-        $('#content').append(productsDiv);
-        $('#editProducts tr').append(createProductForEdit(product));
+        $(productsDiv).append(createProduct(product));
+        $('#editProducts table').append(createProductForEdit(product));
     } else {
-        productForEdit.html(createProductForEdit(product));
-        productDiv.html(createProduct(product));
+        createProduct(product).replaceAll(productDivFromBasket);
+        createProductForEdit(product).replaceAll(productForEdit);
+        createProduct(product).replaceAll(productDiv);
     }
+
+    productsHide();
 }
 
 function createContent(products) {
@@ -70,52 +79,51 @@ function createContent(products) {
 }
 
 function createProductForEdit(product) {
-    let characteristic = '';
-    product.characteristic.split(';').forEach(charact => {
-        characteristic.concat(charact + ';<br>');
+    let charactElement = '';
+    product.characteristic.split(';').forEach(function (charact) {
+        if (charact) {
+            charactElement += charact + ';<br>';
+        }
     });
 
-    let productForEdit = '<td data-editId='+product.id+'>'+product.id+'</td>' +
-        '<td>'+product.categoryName+'</td><td>'+product.productName+'</td><td>'+product.price+'</td>' +
-        '<td><img src="'+product.imgUrl+'" value="logoButton" width="50px"></td>' + '<td>'+ characteristic+'</td>' +
+    let productForEdit = $('<tr data-edit-id="'+product.id+'"><td>' + product.id + '</td>' +
+        '<td>' + product.categoryName + '</td><td>' + product.productName + '</td><td>' + product.price + '</td>' +
+        '<td><img src="' + product.imgUrl + '" value="logoButton" width="50px"></td>' + '<td>' + charactElement + '</td>' +
         '<td align="right"><img class="editProductDB" value="editProduct" src="img/edit.png"></td>' +
-        '<td align="right"><img class="removeProductDB" value="removeProduct" src="img/removeFromBasket.png"></td>';
+        '<td align="right"><img class="removeProductDB" value="removeProduct" src="img/removeFromBasket.png"></td></tr>');
     return productForEdit;
 }
 
-
 function createProduct(product) {
-    let characteristic = '';
-    product.characteristic.split(';').forEach(charact => {
-        characteristic.concat('<li>' + charact + '</li>li>');
+    let charactElement = '';
+    product.characteristic.split(';').forEach(function (charact) {
+        if (charact) {
+            charactElement += '<li>' + charact + '</li>';
+        }
     });
-    let productDiv = '<div class="product" data-id= "product.id"></div>';
-
-    productDiv.innerHTML = '<div class="logo"><img src="'+product.imgUrl+'" value="logoButton">' +
-        '<div class="productName">'+product.productName+'</div></div><div class="infoProduct">' +
-        '<div class="characteristics"><ul>' + characteristic + '</ul></div>' +
-        '<div class="price">'+product.price+'</div></div>' +
+    let productDiv = $('<div class="product" data-id= "'+product.id+'"><div class="logo">' +
+        '<img src="' + product.imgUrl + '" value="logoButton">' +
+        '<div class="productName">' + product.productName + '</div></div><div class="infoProduct">' +
+        '<div class="characteristics"><ul>' + charactElement + '</ul></div>' +
+        '<div class="price">' + product.price + '</div></div>' +
         '<img class="addToBasket" value="В корзину" src="img/addToBasket.png">' +
-        '<img class="removeFromBasket" value="В корзину" src="img/removeFromBasket.png"></div>';
+        '<img class="removeFromBasket" value="В корзину" src="img/removeFromBasket.png"></div></div>');
+
     return productDiv;
 }
 
 function addToBasket() {
     let addToBasketElement = this.parentElement.cloneNode(true);
-    addToBasketElement.setAttribute("style", "width:auto");
-    addToBasketElement.removeAttribute("id");
+    $('#basketProducts .addToBasket').hide();
     addToBasketElement.getElementsByClassName("addToBasket")[0].removeAttribute("style");
-    addToBasketElement.getElementsByClassName("removeFromBasket")[0].setAttribute("style", "display:initial;");
-    
+    addToBasketElement.removeAttribute("style");
 
     $('#basketProducts').append(addToBasketElement);
-    $('.removeFromBasket').on('click', removeFromBasket);
-
     countProductsAndSum();
 }
 
 function productShow() {
-    let product = this.parentElement;
+    let product = $(this).closest('.product')[0];
     if (product.hasAttribute("style")) {
         product.removeAttribute("style");
         product.getElementsByClassName("infoProduct")[0].removeAttribute("style");
@@ -153,7 +161,7 @@ function countProductsAndSum() {
         countProducts.removeAttribute("style");
         countProducts.innerText = '';
     }
-    let discount = Math.random() * 101^0;
+    let discount = Math.random() * 101 ^ 0;
     $('#discount').text('Скидка ' + discount + '%:');
 
     let sum = 0;
@@ -166,7 +174,7 @@ function countProductsAndSum() {
 
     let discountSum = sum * discount / 100;
     $('#discountSum').text(~~discountSum);
-    $('#totalSum').text(sum - discountSum^0);
+    $('#totalSum').text(sum - discountSum ^ 0);
 }
 
 function basketShow() {
@@ -197,7 +205,7 @@ function editHide() {
     $("#popup3").hide();
 }
 
-function editProductDB(){
+function editProductDB() {
     $("#uploadImgButton [value = 'logoButton']").attr('src', $(this).closest('tr').find('td:eq(4) [value="logoButton"]').attr('src'));
     $("#popup3 [name='categoryName']").val($(this).closest('tr').find('td:eq(1)').text());
     $("#popup3 [name='productName']").val($(this).closest('tr').find('td:eq(2)').text());
@@ -206,7 +214,21 @@ function editProductDB(){
     $("#popup3 [name='price']").val($(this).closest('tr').find('td:eq(3)').text());
 }
 
-function removeProductDB(){
+function removeProductDB() {
+    let data = {};
+    data.id = $(this).closest('tr').data('edit-id');
+    $.ajax({
+        type: "PUT",
+        contentType: 'json',
+        url: "remove",
+        data: JSON.stringify(data),
+        success: function () {
+            $('.products').children('[data-id="' + data.id + '"]').remove();
+            $('#basketProducts').children('[data-id="' + data.id + '"]').remove();
+            $('tbody').children('[data-edit-id="' + data.id + '"]').remove();
+        }
+    });
+    return false;
 
 }
 
@@ -225,25 +247,27 @@ function searchOnSite() {
 }
 
 function sendEditForm() {
-       let data = new FormData(this);
-       $.ajax({
-           type: "PUT",
-           processData: false,
-           contentType: false,
-           url: "edit",
-           data: data,
-           success: createOrUpdateProduct
-       });
-       return false;
+    let data = new FormData(this);
+    $.ajax({
+        type: "PUT",
+        processData: false,
+        contentType: false,
+        url: "edit",
+        data: data,
+        success: createOrUpdateProduct
+    });
+    return false;
 }
 
-function uploadImgButton(){
+function uploadImgButton() {
     $('#uploadImg').click();
 }
 
-function changeUploadImgButton(){
+function changeUploadImgButton() {
     let reader = new FileReader();
-    reader.onload = function(e) { $("#uploadImgButton [value = 'logoButton']").attr('src', e.target.result); }
+    reader.onload = function (e) {
+        $("#uploadImgButton [value = 'logoButton']").attr('src', e.target.result);
+    }
     reader.readAsDataURL(this.files[0]);
 }
 
