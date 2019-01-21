@@ -16,13 +16,6 @@ function setListener() {
     $('#uploadImg').on('change', changeUploadImgButton);
     $('#editForm').submit(sendEditForm);
     $(document).on('click', '.removeFromBasket', removeFromBasket);
-
-    // $('.addToBasket').on('click', addToBasket);
-    // $('.content .product').children().not('.addToBasket').on('click', productShow);
-    // $('.editProductDB').on('click', editProductDB);
-    // $('.removeProductDB').on('click', removeProductDB);
-    // $('#uploadImgButton').on('click', uploadImgButton);
-    // $('.removeFromBasket').on('click', removeFromBasket);
 }
 
 //__________________________
@@ -247,19 +240,11 @@ function searchOnSite() {
             success: function (data) {
                 data.forEach(id => {
                     let elem = $('.products').children('[data-id="' + id + '"]');
-                    $('#searchProducts').append(elem);
+                    $(elem).clone().appendTo('#searchProducts');
                 });
-
-//                let elem = document.getElementById(product.id).cloneNode(true);
-//                $('#searchProducts').append(elem);
-//                $('.products').children('[data-id="' + data.id + '"]').remove();
-//                $('#basketProducts').children('[data-id="' + data.id + '"]').each(removeFromBasket);
-//                $('tbody').children('[data-edit-id="' + data.id + '"]').remove();
             }
         });
         return false;
-
-
     }
 }
 
