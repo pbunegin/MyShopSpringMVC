@@ -147,7 +147,7 @@ function productsHide() {
 }
 
 function removeFromBasket() {
-    document.getElementById('basketProducts').removeChild(this.parentElement);
+    $(this).closest('.product').remove();
     countProductsAndSum();
 }
 
@@ -219,12 +219,13 @@ function removeProductDB() {
     data.id = $(this).closest('tr').data('edit-id');
     $.ajax({
         type: "PUT",
-        contentType: 'json',
         url: "remove",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
         data: JSON.stringify(data),
         success: function () {
             $('.products').children('[data-id="' + data.id + '"]').remove();
-            $('#basketProducts').children('[data-id="' + data.id + '"]').remove();
+            $('#basketProducts').children('[data-id="' + data.id + '"]').each(removeFromBasket);
             $('tbody').children('[data-edit-id="' + data.id + '"]').remove();
         }
     });
@@ -234,16 +235,32 @@ function removeProductDB() {
 
 function searchOnSite() {
     $('#searchProducts').empty();
-    let searchStr = this.value.toLowerCase();
+    if (this.value.length > 2){
+        let data = {};
+        $('#searchProdForm').serializeArray().forEach(elem => {data[elem.name] = elem.value;});
+        $.ajax({
+            type: "POST",
+            url: "search",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify(data),
+            success: function (data) {
+                data.forEach(id => {
+                    let elem = $('.products').children('[data-id="' + id + '"]');
+                    $('#searchProducts').append(elem);
+                });
 
-    data.forEach(category => {
-        category.products.forEach(product => {
-            if (~product.productName.toLowerCase().indexOf(searchStr)) {
-                let elem = document.getElementById(product.id).cloneNode(true);
-                $('#searchProducts').append(elem);
+//                let elem = document.getElementById(product.id).cloneNode(true);
+//                $('#searchProducts').append(elem);
+//                $('.products').children('[data-id="' + data.id + '"]').remove();
+//                $('#basketProducts').children('[data-id="' + data.id + '"]').each(removeFromBasket);
+//                $('tbody').children('[data-edit-id="' + data.id + '"]').remove();
             }
         });
-    });
+        return false;
+
+
+    }
 }
 
 function sendEditForm() {

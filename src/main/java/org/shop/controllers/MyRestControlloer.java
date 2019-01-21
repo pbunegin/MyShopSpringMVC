@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 public class MyRestControlloer {
@@ -29,10 +31,16 @@ public class MyRestControlloer {
 
     }
 
-    @RequestMapping(value = "/remove", method = RequestMethod.GET)
-    public long remove(@RequestParam("id") long id){
-        productService.deleteProduct(id);
-        return id;
+    @RequestMapping(value = "/remove", method = RequestMethod.PUT)
+    public Map<String, Long> remove(@RequestBody Map<String, Long> request){
+        productService.deleteProduct(request.get("id"));
+        return request;
+    }
+
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    public List<Long> search(@RequestBody Map<String, String> request){
+        List<Long> result = productService.getIdProductsByParam(request);
+        return result;
     }
 
     private void saveFile(long id, MultipartFile file) {

@@ -1,6 +1,8 @@
 package org.shop.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.shop.service.ProductService;
@@ -48,10 +50,33 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void createOrUpdateProduct(Product product) {
         Product product1 = getProductById(product.getId());
-        if (product1 == null){
+        if (product1 == null) {
             createProduct(product);
         } else {
             updateProduct(product);
         }
+    }
+
+    @Override
+    public List<Long> getIdProductsByParam(Map<String, String> searchParam) {
+        List<Long> result = new ArrayList<>();
+        switch (searchParam.get("searchParam")) {
+            case "byName": {
+                result = getProducts().stream().filter(product -> product.getProductName().toLowerCase().contains(searchParam.get("searchString").toLowerCase()))
+                        .map(Product::getId).distinct().collect(Collectors.toList());
+                break;
+            }
+            case "byPrice": {
+                result = getProducts().stream().filter(product -> product.getPrice() == Long.parseLong(searchParam.get("searchString")))
+                        .map(Product::getId).distinct().collect(Collectors.toList());
+                break;
+            }
+            case "byCharacteristic": {
+                result = getProducts().stream().filter(product -> product.getCharacteristic().toLowerCase().contains(searchParam.get("searchString").toLowerCase()))
+                        .map(Product::getId).distinct().collect(Collectors.toList());
+                break;
+            }
+        }
+        return result;
     }
 }

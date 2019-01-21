@@ -1,6 +1,7 @@
 package org.shop.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.shop.data.Product;
 
@@ -19,4 +20,6 @@ public interface ProductService {
     void deleteProduct(long productId);
 
     void createOrUpdateProduct(Product product);
+
+    List<Long> getIdProductsByParam(Map<String, String> request);
 }

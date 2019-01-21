@@ -21,8 +21,13 @@
             <a href="javascript:searchHide()">
                 <img class="imgSearch" src="img/close.png">
             </a>
-            <form action="" id="searchProd"></form>
-            <input id="searchField" type="search" placeholder="Поиск..." style='width: 30%;' form="searchProd">
+            <form action="" id="searchProdForm"></form>
+            <select size = "1" name = "searchParam" form="searchProdForm">
+              <option value = "byName">По названию</option>
+              <option value = "byPrice">По цене</option>
+              <option value = "byCharacteristic">По характеристикам</option>
+            </select>
+            <input id="searchField" type="search" placeholder="Поиск..." style='width: 30%;' form="searchProdForm" name = "searchString" autofocus>
         </div>
         <div class="poupSearchProducts" id="searchProducts">
             <!--Продукты в поиске-->
