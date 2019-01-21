@@ -216,13 +216,19 @@ function removeProductDB() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data: JSON.stringify(data),
-        success: function () {
-            $('.products').children('[data-id="' + data.id + '"]').remove();
-            $('#basketProducts').children('[data-id="' + data.id + '"]').each(removeFromBasket);
-            $('tbody').children('[data-edit-id="' + data.id + '"]').remove();
-        }
+        success: removeProductOnSite
     });
     return false;
+
+}
+
+function removeProductOnSite(data) {
+    $('.products').children('[data-id="' + data.id + '"]').remove();
+    $('#basketProducts').children('[data-id="' + data.id + '"]').each(removeFromBasket);
+    $('tbody').children('[data-edit-id="' + data.id + '"]').remove();
+    let prodsDivRem = $('.products:not(.products:has(div))');
+    prodsDivRem.prev().remove();
+    prodsDivRem.remove();
 
 }
 
