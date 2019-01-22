@@ -29,7 +29,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getProductsByName(String name) {
-        return repository.getProducts().stream().filter(product -> product.getProductName().equals(name)).collect(Collectors.toList());
+        return repository.getProducts().stream()
+                .filter(product -> product.getProductName().equals(name)).collect(Collectors.toList());
     }
 
     @Override
@@ -62,17 +63,21 @@ public class ProductServiceImpl implements ProductService {
         List<Long> result = new ArrayList<>();
         switch (searchParam.get("searchParam")) {
             case "byName": {
-                result = getProducts().stream().filter(product -> product.getProductName().toLowerCase().contains(searchParam.get("searchString").toLowerCase()))
-                        .map(Product::getId).distinct().collect(Collectors.toList());
+                result = getProducts().stream()
+                        .filter(product -> product.getProductName().toLowerCase().contains(searchParam.get("searchString").toLowerCase()))
+                        .map(Product::getId).distinct()
+                        .collect(Collectors.toList());
                 break;
             }
             case "byPrice": {
-                result = getProducts().stream().filter(product -> product.getPrice() == Long.parseLong(searchParam.get("searchString")))
+                result = getProducts().stream()
+                        .filter(product -> product.getPrice() == Long.parseLong(searchParam.get("searchString")))
                         .map(Product::getId).distinct().collect(Collectors.toList());
                 break;
             }
             case "byCharacteristic": {
-                result = getProducts().stream().filter(product -> product.getCharacteristic().toLowerCase().contains(searchParam.get("searchString").toLowerCase()))
+                result = getProducts().stream()
+                        .filter(product -> product.getCharacteristic().toLowerCase().contains(searchParam.get("searchString").toLowerCase()))
                         .map(Product::getId).distinct().collect(Collectors.toList());
                 break;
             }

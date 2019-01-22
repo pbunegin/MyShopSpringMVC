@@ -66,7 +66,7 @@
             </table>
         </div>
         <div class="popupFooter">
-            <form id = "editForm"></form>
+            <form id = "editForm"/>
             <table>
                 <tr>
                     <td rowspan="3">
