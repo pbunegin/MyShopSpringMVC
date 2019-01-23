@@ -84,4 +84,10 @@ public class ProductServiceImpl implements ProductService {
         }
         return result;
     }
+
+    @Override
+    public List<Long> createProducts(List<Product> products) {
+        products.forEach(this::createProduct);
+        return products.stream().map(Product::getId).distinct().collect(Collectors.toList());
+    }
 }
