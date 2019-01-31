@@ -17,18 +17,18 @@ public class ConfigApp implements WebMvcConfigurer {
                 .excludePathPatterns("/css/*", "/login", "/error", "/registration", "/js/*");
     }
 
-    @Bean(initMethod="initData")
-    public DataInitializer getDataInitializer(){
-        return new DataInitializer();
-    }
-
-    @Bean
-    public ProductInitializer getProductInitializer(){
-        return new ProductInitializer();
-    }
-
-    @Bean
-    public UserInitializer getUserInitializer(){
-        return new UserInitializer();
-    }
+//    @Bean(initMethod="initData")
+//    public DataInitializer getDataInitializer(){
+//        return new DataInitializer();
+//    }
+//
+//    @Bean
+//    public ProductInitializer getProductInitializer(){
+//        return new ProductInitializer();
+//    }
+//
+//    @Bean
+//    public UserInitializer getUserInitializer(){
+//        return new UserInitializer();
+//    }
 }

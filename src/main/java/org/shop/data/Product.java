@@ -1,13 +1,23 @@
 package org.shop.data;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Objects;
 
+@Entity
+@Table(name = "products")
 public class Product {
-    private String productName;
-    private String categoryName;
+    @Id
     private long id;
+    @Column(name = "product_name")
+    private String productName;
+    @Column(name = "category_code")
+    private String categoryName;
     private double price;
     private String characteristic = "";
+    @Column(name = "img_url")
     private String imgUrl;
 
     public String getProductName() {
