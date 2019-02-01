@@ -35,7 +35,7 @@
     </div>
 </div>
 
-<c:if test = "${user.role eq 'admin'}">
+<c:if test = "${role eq 'admin'}">
 <div class="popupMenu" id="popup3">
     <div class="popupContent">
         <div class="popupHeader clearfix">

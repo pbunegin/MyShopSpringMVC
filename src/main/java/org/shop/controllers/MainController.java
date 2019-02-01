@@ -41,6 +41,7 @@ public class MainController {
             User user = userService.getUserByLogin(login);
             if (user != null && user.getPassword().equals(password)) {
                 session.setAttribute("user", user);
+                session.setAttribute("role", user.getRole().getRoleName());
                 session.removeAttribute("errorLoginPassword");
                 return "redirect:index";
             } else {
