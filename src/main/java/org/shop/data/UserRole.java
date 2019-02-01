@@ -8,10 +8,11 @@ import java.util.List;
 @Table(name = "roles")
 public class UserRole {
     @Id
+    @Column(name = "role_id")
     private int Id;
     @Column(name = "user_role")
     private String roleName;
-    @OneToMany
+    @OneToMany(mappedBy = "role")
     private List<User> users = new ArrayList<>();
 
     private String description;

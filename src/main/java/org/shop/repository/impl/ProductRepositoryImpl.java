@@ -23,7 +23,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public List<Product> getProducts() {
-        List<Product> products = sessionFactory.getCurrentSession().createSQLQuery("select * from products").list();
+        List<Product> products = sessionFactory.getCurrentSession().createSQLQuery("select * from products").addEntity(Product.class).list();
         return products;
     }
 

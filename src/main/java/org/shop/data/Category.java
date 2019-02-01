@@ -12,7 +12,7 @@ public class Category {
     private long id;
     @Column(name = "category_name")
     private String categoryName;
-    @OneToMany
+    @OneToMany(mappedBy = "category")
     private List<Product> products = new ArrayList<>();
 
     public long getId() {

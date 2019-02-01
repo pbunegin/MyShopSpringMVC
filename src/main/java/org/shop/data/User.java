@@ -7,6 +7,7 @@ import java.util.List;
 @Table(name = "users")
 public class User {
     @Id
+    @Column(name = "user_code")
     private int id;
     @Column(name = "first_name")
     private String firstName;

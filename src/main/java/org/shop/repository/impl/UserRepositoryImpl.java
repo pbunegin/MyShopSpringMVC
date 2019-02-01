@@ -35,7 +35,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public List<User> getUsers() {
         Session session = sessionFactory.getCurrentSession();
-        List<User> users = session.createSQLQuery("select * from users").list();
+        List<User> users = session.createSQLQuery("select * from users").addEntity(User.class).list();
         return users;
     }
 }
