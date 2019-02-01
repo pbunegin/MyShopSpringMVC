@@ -17,7 +17,7 @@ public class UserInitializer {
         user.setLastName("Иванов");
         user.setLogin("ivan");
         user.setPassword("111");
-        user.setRole("admin");
+//        user.setRole("admin");
         userService.registerUser(user);
         
         user = new User();

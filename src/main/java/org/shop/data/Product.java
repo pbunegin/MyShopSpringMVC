@@ -1,20 +1,20 @@
 package org.shop.data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.annotation.PostConstruct;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "products")
 public class Product {
     @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @Column(name = "product_name")
     private String productName;
-    @Column(name = "category_code")
-    private String categoryName;
+    @ManyToOne
+    @JoinColumn(name = "category_code")
+    private Category category;
     private double price;
     private String characteristic = "";
     @Column(name = "img_url")
@@ -28,12 +28,12 @@ public class Product {
         this.productName = productName;
     }
 
-    public String getCategoryName() {
-        return categoryName;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public long getId() {
@@ -64,7 +64,12 @@ public class Product {
         return imgUrl;
     }
 
-    public void setImgUrl() {
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    @PostConstruct
+    public void refreshImgUrl() {
         this.imgUrl = "/prodImg/" + this.getId() + ".jpg?" + Math.random();
     }
 

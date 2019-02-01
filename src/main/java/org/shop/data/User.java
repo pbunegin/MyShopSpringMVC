@@ -1,9 +1,6 @@
 package org.shop.data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -17,8 +14,9 @@ public class User {
     private String lastName;
     private String password;
     private String login;
-    @Column(name = "role_id")
-    private String role = "user";
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private UserRole role;
 //    private List<Product> basket;
 
     public String getFirstName() {
@@ -53,11 +51,11 @@ public class User {
         this.login = login;
     }
 
-    public String getRole() {
+    public UserRole getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(UserRole role) {
         this.role = role;
     }
 

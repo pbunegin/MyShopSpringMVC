@@ -36,6 +36,7 @@ public class MainController {
     @RequestMapping(value = "/login")
     public String login(@RequestParam(required = false) String login,
                         @RequestParam(required = false) String password, HttpSession session) {
+        System.out.println(userService.getUserByLogin(login));
         if (login != null || password != null) {
             User user = userService.getUserByLogin(login);
             if (user != null && user.getPassword().equals(password)) {
@@ -68,7 +69,7 @@ public class MainController {
     private Map<String, List<Product>> createMap() {
         Map<String, List<Product>> result = new HashMap<>();
         for (Product product : productService.getProducts()) {
-            String categoryName = product.getCategoryName();
+            String categoryName = product.getCategory().getCategoryName();
             if (result.get(categoryName) == null){
                 result.put(categoryName, new ArrayList<>());
             }

@@ -2,14 +2,13 @@ package org.shop.repository.list;
 
 import org.shop.data.Product;
 import org.shop.repository.ProductRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Repository
+//@Repository
 public class ProductMapRepository implements ProductRepository {
     private Map<Long, Product> products = new HashMap<>();
     private long sequence = 0;
@@ -27,14 +26,14 @@ public class ProductMapRepository implements ProductRepository {
     @Override
     public long createProduct(Product product) {
         product.setId(++sequence);
-        product.setImgUrl();
+        product.refreshImgUrl();
         products.put(product.getId(), product);
         return product.getId();
     }
 
     @Override
     public void updateProduct(Product product) {
-        product.setImgUrl();
+        product.refreshImgUrl();
         products.put(product.getId(),product);
     }
 

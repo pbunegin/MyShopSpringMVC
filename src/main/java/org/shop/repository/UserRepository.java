@@ -8,7 +8,7 @@ public interface UserRepository {
     
     User getUserById(int id);
     
-    int createUser(User user);
+    long createUser(User user);
     
     void updateUser(User user);
     

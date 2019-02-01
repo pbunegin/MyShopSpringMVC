@@ -6,7 +6,7 @@ import org.shop.data.User;
 
 public interface UserService {
     
-    int registerUser(User user);
+    long registerUser(User user);
     
     User getUserById(int id);
     

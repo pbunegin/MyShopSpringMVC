@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository
+//@Repository
 public class UserListRepository implements UserRepository {
     private List<User> users = new ArrayList<>();
     private int lastId  = 0;
@@ -18,7 +18,7 @@ public class UserListRepository implements UserRepository {
     }
 
     @Override
-    public int createUser(User user) {
+    public long createUser(User user) {
         users.add(user);
         user.setId(++lastId);
         return lastId;

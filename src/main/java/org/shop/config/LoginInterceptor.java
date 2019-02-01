@@ -25,7 +25,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
         String requestURI = request.getRequestURI();
         if ((requestURI.equals("/edit") || requestURI.equals("/remove"))
-                && !user.getRole().equals("admin")){
+                && !user.getRole().getRoleName().equals("admin")){
             response.setStatus(SC_METHOD_NOT_ALLOWED);
             response.sendRedirect("/index");
             return false;
