@@ -50,19 +50,10 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void createOrUpdateProduct(Product product) {
-        Product product1 = getProductById(product.getId());
-        if (product1 == null) {
+        if (product.getId() == null){
             createProduct(product);
         } else {
             updateProduct(product);
-//            product1.setCharacteristic(product.getCharacteristic());
-//            product1.setId(product.getId());
-//            product1.setCategory(product.getCategory());
-//            product1.setPrice(product.getPrice());
-//            product1.setProductName(product.getProductName());
-//            product1.refreshImgUrl();
-//            updateProduct(product1);
-
         }
     }
 

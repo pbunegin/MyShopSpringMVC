@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-//@Transactional
 public class UserRepositoryImpl implements UserRepository {
     @Autowired
     private SessionFactory sessionFactory;
@@ -27,8 +26,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void updateUser(User user) {
-        Session session = sessionFactory.getCurrentSession();
-        session.save(user);
+        sessionFactory.getCurrentSession().update(user);
     }
 
     @Override

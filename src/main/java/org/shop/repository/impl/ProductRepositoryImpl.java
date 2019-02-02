@@ -30,14 +30,14 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public Long createProduct(Product product) {
+        Long id = (Long) sessionFactory.getCurrentSession().save(product);
         product.refreshImgUrl();
-        return (Long) sessionFactory.getCurrentSession().save(product);
+        return id;
     }
 
     @Override
     public void updateProduct(Product product) {
-        product.refreshImgUrl();
-        sessionFactory.getCurrentSession().merge(product);
+        sessionFactory.getCurrentSession().update(product);
     }
 
     @Override

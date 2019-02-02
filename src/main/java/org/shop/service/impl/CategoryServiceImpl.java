@@ -42,4 +42,14 @@ public class CategoryServiceImpl implements CategoryService {
     public void deleteCategory(Long categoryId) {
         repository.deleteCategory(categoryId);
     }
+
+    @Override
+    public Category getCategoryOrCreate(String categoryName) {
+        Category category = getCategoryByName(categoryName);
+        if (category == null){
+            category = new Category(categoryName);
+            createCategory(category);
+        }
+        return category;
+    }
 }

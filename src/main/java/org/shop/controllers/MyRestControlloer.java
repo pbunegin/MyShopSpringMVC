@@ -28,15 +28,9 @@ public class MyRestControlloer {
 
     @RequestMapping(value = "/edit", method = RequestMethod.PUT)
     public Product edit(@ModelAttribute Product product, @RequestParam("categoryName") String categoryName,
-                        @RequestParam("uploadImg") MultipartFile file){
-        Category category = categoryService.getCategoryByName(categoryName);
-        if (category == null){
-            category = new Category(categoryName);
-            Long categoryId = categoryService.createCategory(category);
-            product.setCategory(categoryService.getCategoryById(categoryId));
-        } else {
-            product.setCategory(category);
-        }
+                        @RequestParam("uploadImg") MultipartFile file) {
+        Category category = categoryService.getCategoryOrCreate(categoryName);
+        product.setCategory(category);
         productService.createOrUpdateProduct(product);
         saveFile(product.getId(), file);
         return product;
@@ -44,13 +38,13 @@ public class MyRestControlloer {
     }
 
     @RequestMapping(value = "/remove", method = RequestMethod.PUT)
-    public Map<String, Long> remove(@RequestBody Map<String, Long> request){
+    public Map<String, Long> remove(@RequestBody Map<String, Long> request) {
         productService.deleteProduct(request.get("id"));
         return request;
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.POST)
-    public List<Long> search(@RequestBody Map<String, String> request){
+    public List<Long> search(@RequestBody Map<String, String> request) {
         List<Long> result = productService.getIdProductsByParam(request);
         return result;
     }

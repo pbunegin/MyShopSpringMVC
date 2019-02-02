@@ -281,5 +281,5 @@ function changeUploadImgButton() {
 
 function resetUploadImgButton() {
     $("#uploadImgButton [value = 'logoButton']").removeAttr('src');
-    $("#popup3 [name='id']").val('0');
+    $("#popup3 [name='id']").val('');
 }

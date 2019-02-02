@@ -87,7 +87,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <input type="text" name="id" placeholder="ID" value="0" required form = "editForm">
+                        <input type="text" name="id" form = "editForm">
                         <input type="text" name="price" placeholder="Цена" required form = "editForm">
                     </td>
                     <td align="right"><button class="placeOrder sendEditForm" form = "editForm" type="reset">Создать</button></td>
