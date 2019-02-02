@@ -9,7 +9,6 @@
     <title>Список товаров</title>
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
-    <script src="js/listProd.js" asyns></script>
     <script src="js/jquery-3.3.1.min.js" asyns></script>
     <script src="js/script.js" asyns></script>
 </head>

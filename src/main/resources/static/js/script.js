@@ -192,10 +192,13 @@ function searchHide() {
 
 function editShow() {
     $("#popup3").show();
+    $('#editForm')[0].reset();
 }
 
 function editHide() {
     $("#popup3").hide();
+    $('#editForm')[0].reset();
+    resetUploadImgButton();
 }
 
 function editProductDB() {
@@ -264,6 +267,9 @@ function sendEditForm() {
         data: data,
         success: createOrUpdateProduct
     });
+
+//    $('#editForm')[0].reset();
+//    resetUploadImgButton();
     return false;
 }
 

@@ -38,6 +38,7 @@ public class ProductRepositoryImpl implements ProductRepository {
     @Override
     public void updateProduct(Product product) {
         sessionFactory.getCurrentSession().update(product);
+        product.refreshImgUrl();
     }
 
     @Override
