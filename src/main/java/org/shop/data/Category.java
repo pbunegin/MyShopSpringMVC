@@ -8,12 +8,20 @@ import java.util.List;
 @Table(name = "categories")
 public class Category {
     @Id
+    @GeneratedValue
     @Column(name = "category_code")
     private long id;
     @Column(name = "category_name")
     private String categoryName;
     @OneToMany(mappedBy = "category")
     private List<Product> products = new ArrayList<>();
+
+    public Category() {
+    }
+
+    public Category(String categoryName) {
+        this.categoryName = categoryName;
+    }
 
     public long getId() {
         return id;

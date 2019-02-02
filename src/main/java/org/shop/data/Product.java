@@ -8,8 +8,8 @@ import java.util.Objects;
 @Table(name = "products")
 public class Product {
     @Id
+    @GeneratedValue
     @Column(name = "product_code")
-//    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @Column(name = "product_name")
     private String productName;

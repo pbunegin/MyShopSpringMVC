@@ -23,7 +23,8 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public List<Product> getProducts() {
-        List<Product> products = sessionFactory.getCurrentSession().createSQLQuery("select * from products").addEntity(Product.class).list();
+        List<Product> products = sessionFactory.getCurrentSession()
+                .createSQLQuery("select * from products").addEntity(Product.class).list();
         return products;
     }
 
@@ -36,7 +37,7 @@ public class ProductRepositoryImpl implements ProductRepository {
     @Override
     public void updateProduct(Product product) {
         product.refreshImgUrl();
-        sessionFactory.getCurrentSession().save(product);
+        sessionFactory.getCurrentSession().update(product);
     }
 
     @Override

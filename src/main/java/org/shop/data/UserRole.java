@@ -8,6 +8,7 @@ import java.util.List;
 @Table(name = "roles")
 public class UserRole {
     @Id
+    @GeneratedValue
     @Column(name = "role_id")
     private int Id;
     @Column(name = "user_role")

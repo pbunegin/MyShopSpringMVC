@@ -1,6 +1,8 @@
 package org.shop.controllers;
 
+import org.shop.data.Category;
 import org.shop.data.Product;
+import org.shop.service.CategoryService;
 import org.shop.service.ProductService;
 import org.shop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +23,20 @@ public class MyRestControlloer {
     private ProductService productService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private CategoryService categoryService;
 
     @RequestMapping(value = "/edit", method = RequestMethod.PUT)
-//    produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Product edit(@ModelAttribute Product product, @RequestParam("uploadImg") MultipartFile file){
+    public Product edit(@ModelAttribute Product product, @RequestParam("categoryName") String categoryName,
+                        @RequestParam("uploadImg") MultipartFile file){
+        Category category = categoryService.getCategoryByName(categoryName);
+        if (category == null){
+            category = new Category(categoryName);
+            long categoryId = categoryService.createCategory(category);
+            product.setCategory(categoryService.getCategoryById(categoryId));
+        } else {
+            product.setCategory(category);
+        }
         productService.createOrUpdateProduct(product);
         saveFile(product.getId(), file);
         return product;

@@ -36,12 +36,10 @@ public class MainController {
     @RequestMapping(value = "/login")
     public String login(@RequestParam(required = false) String login,
                         @RequestParam(required = false) String password, HttpSession session) {
-        System.out.println(userService.getUserByLogin(login));
         if (login != null || password != null) {
             User user = userService.getUserByLogin(login);
             if (user != null && user.getPassword().equals(password)) {
                 session.setAttribute("user", user);
-                session.setAttribute("role", user.getRole().getRoleName());
                 session.removeAttribute("errorLoginPassword");
                 return "redirect:index";
             } else {
