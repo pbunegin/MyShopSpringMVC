@@ -11,13 +11,13 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
-//@Transactional
+@Transactional
 public class ProductRepositoryImpl implements ProductRepository {
     @Autowired
     private SessionFactory sessionFactory;
 
     @Override
-    public Product getProductById(long productId) {
+    public Product getProductById(Long productId) {
         return sessionFactory.getCurrentSession().get(Product.class, productId);
     }
 
@@ -29,19 +29,19 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public long createProduct(Product product) {
+    public Long createProduct(Product product) {
         product.refreshImgUrl();
-        return (long) sessionFactory.getCurrentSession().save(product);
+        return (Long) sessionFactory.getCurrentSession().save(product);
     }
 
     @Override
     public void updateProduct(Product product) {
         product.refreshImgUrl();
-        sessionFactory.getCurrentSession().update(product);
+        sessionFactory.getCurrentSession().merge(product);
     }
 
     @Override
-    public void deleteProduct(long productId) {
+    public void deleteProduct(Long productId) {
         Session session = sessionFactory.getCurrentSession();
         Product product = session.get(Product.class, productId);
         session.delete(product);

@@ -15,12 +15,12 @@ public class UserServiceImpl implements UserService {
     private UserRepository repository;
 
     @Override
-    public long registerUser(User user) {
+    public Long registerUser(User user) {
         return repository.createUser(user);
     }
 
     @Override
-    public User getUserById(int userId) {
+    public User getUserById(Long userId) {
         return repository.getUserById(userId);
     }
 

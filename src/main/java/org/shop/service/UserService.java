@@ -6,9 +6,9 @@ import org.shop.data.User;
 
 public interface UserService {
     
-    long registerUser(User user);
+    Long registerUser(User user);
     
-    User getUserById(int id);
+    User getUserById(Long id);
     
     void updateUserProfile(User user);
     

@@ -18,7 +18,7 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepository repository;
 
     @Override
-    public Product getProductById(long id) {
+    public Product getProductById(Long id) {
         return repository.getProductById(id);
     }
 
@@ -34,7 +34,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public long createProduct(Product product) {
+    public Long createProduct(Product product) {
         return repository.createProduct(product);
     }
 
@@ -44,7 +44,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void deleteProduct(long productId) {
+    public void deleteProduct(Long productId) {
         repository.deleteProduct(productId);
     }
 
@@ -55,6 +55,14 @@ public class ProductServiceImpl implements ProductService {
             createProduct(product);
         } else {
             updateProduct(product);
+//            product1.setCharacteristic(product.getCharacteristic());
+//            product1.setId(product.getId());
+//            product1.setCategory(product.getCategory());
+//            product1.setPrice(product.getPrice());
+//            product1.setProductName(product.getProductName());
+//            product1.refreshImgUrl();
+//            updateProduct(product1);
+
         }
     }
 

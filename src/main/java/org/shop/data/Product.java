@@ -1,5 +1,7 @@
 package org.shop.data;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.annotation.PostConstruct;
 import javax.persistence.*;
 import java.util.Objects;
@@ -8,18 +10,21 @@ import java.util.Objects;
 @Table(name = "products")
 public class Product {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_code")
-    private long id;
+    private Long id;
     @Column(name = "product_name")
     private String productName;
     @ManyToOne
     @JoinColumn(name = "category_code")
+    @JsonProperty(value = "categoryName")
     private Category category;
     private double price;
     private String characteristic = "";
     @Column(name = "img_url")
     private String imgUrl;
+    @Column(name = "maker_code")
+    private Long maker = 1L;
 
     public String getProductName() {
         return productName;
@@ -37,11 +42,11 @@ public class Product {
         this.category = category;
     }
 
-    public long getId() {
+    public Long getId() {
         return this.id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -58,7 +63,7 @@ public class Product {
     }
 
     public void setCharacteristic(String characteristic) {
-        this.characteristic += characteristic;
+        this.characteristic = characteristic;
     }
 
     public String getImgUrl() {
@@ -67,6 +72,14 @@ public class Product {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    public Long getMaker() {
+        return maker;
+    }
+
+    public void setMaker(Long maker) {
+        this.maker = maker;
     }
 
     @PostConstruct

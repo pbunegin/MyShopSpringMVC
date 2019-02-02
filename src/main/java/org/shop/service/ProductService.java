@@ -7,17 +7,17 @@ import org.shop.data.Product;
 
 public interface ProductService {
     
-    Product getProductById(long id);
+    Product getProductById(Long id);
 
     List<Product> getProducts();
     
     List<Product> getProductsByName(String name);
     
-    long createProduct(Product product);
+    Long createProduct(Product product);
     
     void updateProduct(Product product);
     
-    void deleteProduct(long productId);
+    void deleteProduct(Long productId);
 
     void createOrUpdateProduct(Product product);
 

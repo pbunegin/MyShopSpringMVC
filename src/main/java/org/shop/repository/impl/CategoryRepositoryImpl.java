@@ -15,7 +15,7 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     private SessionFactory sessionFactory;
 
     @Override
-    public Category getCategoryById(long categoryId) {
+    public Category getCategoryById(Long categoryId) {
         return sessionFactory.getCurrentSession().get(Category.class, categoryId);
     }
 
@@ -34,17 +34,17 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     }
 
     @Override
-    public long createCategory(Category category) {
-        return (long) sessionFactory.getCurrentSession().save(category);
+    public Long createCategory(Category category) {
+        return (Long) sessionFactory.getCurrentSession().save(category);
     }
 
     @Override
     public void updateCategory(Category category) {
-        sessionFactory.getCurrentSession().update(category);
+        sessionFactory.getCurrentSession().merge(category);
     }
 
     @Override
-    public void deleteCategory(long categoryId) {
+    public void deleteCategory(Long categoryId) {
         Session session = sessionFactory.getCurrentSession();
         Category category = session.get(Category.class, categoryId);
         session.delete(category);

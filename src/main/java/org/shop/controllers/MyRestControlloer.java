@@ -32,7 +32,7 @@ public class MyRestControlloer {
         Category category = categoryService.getCategoryByName(categoryName);
         if (category == null){
             category = new Category(categoryName);
-            long categoryId = categoryService.createCategory(category);
+            Long categoryId = categoryService.createCategory(category);
             product.setCategory(categoryService.getCategoryById(categoryId));
         } else {
             product.setCategory(category);
@@ -55,7 +55,7 @@ public class MyRestControlloer {
         return result;
     }
 
-    private void saveFile(long id, MultipartFile file) {
+    private void saveFile(Long id, MultipartFile file) {
         if (!file.isEmpty()) {
             try {
                 Files.write(Paths.get("target/classes/static/prodImg/" + id + ".jpg"),

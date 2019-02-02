@@ -10,7 +10,7 @@ public class UserRole {
     @Id
     @GeneratedValue
     @Column(name = "role_id")
-    private int Id;
+    private Long Id;
     @Column(name = "user_role")
     private String roleName;
     @OneToMany(mappedBy = "role")
@@ -18,11 +18,11 @@ public class UserRole {
 
     private String description;
 
-    public int getId() {
+    public Long getId() {
         return Id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         Id = id;
     }
 

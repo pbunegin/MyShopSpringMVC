@@ -6,15 +6,15 @@ import java.util.List;
 
 public interface CategoryRepository {
 
-    Category getCategoryById(long categoryId);
+    Category getCategoryById(Long categoryId);
 
     Category getCategoryByName(String categoryName);
 
     List<Category> getCategories();
 
-    long createCategory(Category category);
+    Long createCategory(Category category);
 
     void updateCategory(Category category);
 
-    void deleteCategory(long categoryId);
+    void deleteCategory(Long categoryId);
 }

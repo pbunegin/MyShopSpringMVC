@@ -19,7 +19,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category getCategoryById(long categoryId) {
+    public Category getCategoryById(Long categoryId) {
         return repository.getCategoryById(categoryId);
     }
 
@@ -29,7 +29,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public long createCategory(Category category) {
+    public Long createCategory(Category category) {
         return repository.createCategory(category);
     }
 
@@ -39,7 +39,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void deleteCategory(long categoryId) {
+    public void deleteCategory(Long categoryId) {
         repository.deleteCategory(categoryId);
     }
 }
