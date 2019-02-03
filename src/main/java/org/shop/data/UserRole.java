@@ -8,11 +8,11 @@ import java.util.List;
 @Table(name = "roles")
 public class UserRole {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "role_id")
     private Long Id;
     @Column(name = "user_role")
-    private String roleName;
+    private String roleName = "user";
     @OneToMany(mappedBy = "role")
     private List<User> users = new ArrayList<>();
 

@@ -268,21 +268,22 @@ function sendEditForm() {
         success: createOrUpdateProduct
     });
 
-//    $('#editForm')[0].reset();
-//    resetUploadImgButton();
+    $('#editForm')[0].reset();
+    resetUploadImgButton();
     return false;
 }
 
 function uploadImgButton() {
     $('#uploadImg').click();
+    return false;
 }
 
 function changeUploadImgButton() {
     let reader = new FileReader();
-    reader.onload = function (e) {
-        $("#uploadImgButton [value = 'logoButton']").attr('src', e.target.result);
-    }
     reader.readAsDataURL(this.files[0]);
+    reader.onload = function (e) {
+        $("#uploadImgButton [value = 'logoButton']").attr('src', reader.result);
+    }
 }
 
 function resetUploadImgButton() {

@@ -2,7 +2,9 @@ package org.shop.controllers;
 
 import org.shop.data.Product;
 import org.shop.data.User;
+import org.shop.data.UserRole;
 import org.shop.service.ProductService;
+import org.shop.service.RoleService;
 import org.shop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,8 @@ public class MainController {
     private ProductService productService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private RoleService roleService;
 
     @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
     public String index(HttpSession session, Model model) {
@@ -53,6 +57,9 @@ public class MainController {
     public String registration(@ModelAttribute User user, HttpSession session) {
         if (user.getLogin() == null) {
             return "registration";
+        }
+        if (user.getRole()==null){
+            user.setRole(roleService.getRoleById(2L));
         }
         userService.registerUser(user);
         session.setAttribute("user", user);
