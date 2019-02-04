@@ -23,9 +23,8 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public List<Product> getProducts() {
-        List<Product> products = sessionFactory.getCurrentSession()
-                .createSQLQuery("select * from products").addEntity(Product.class).list();
-        return products;
+        return sessionFactory.getCurrentSession()
+                .createQuery("from Product").list();
     }
 
     @Override
@@ -43,8 +42,6 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public void deleteProduct(Long productId) {
-        Session session = sessionFactory.getCurrentSession();
-        Product product = session.get(Product.class, productId);
-        session.delete(product);
+        sessionFactory.getCurrentSession().delete(getProductById(productId));
     }
 }

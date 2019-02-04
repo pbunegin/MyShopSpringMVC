@@ -9,10 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.Map;
 
@@ -31,8 +27,7 @@ public class MyRestControlloer {
                         @RequestParam("uploadImg") MultipartFile file) {
         Category category = categoryService.getCategoryOrCreate(categoryName);
         product.setCategory(category);
-        productService.createOrUpdateProduct(product);
-        saveFile(product.getId(), file);
+        productService.createOrUpdateProduct(product, file);
         return product;
 
     }
@@ -47,19 +42,5 @@ public class MyRestControlloer {
     public List<Long> search(@RequestBody Map<String, String> request) {
         List<Long> result = productService.getIdProductsByParam(request);
         return result;
-    }
-
-    private void saveFile(Long id, MultipartFile file) {
-        if (!file.isEmpty()) {
-            try {
-                Files.write(Paths.get("target/classes/static/prodImg/" + id + ".jpg"),
-                        file.getBytes(), StandardOpenOption.CREATE);
-                Files.write(Paths.get("resources/static/prodImg/" + id + ".jpg"),
-                        file.getBytes(), StandardOpenOption.CREATE);
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
-        } else {
-        }
     }
 }

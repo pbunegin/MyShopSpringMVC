@@ -22,15 +22,12 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     @Override
     public Category getCategoryByName(String categoryName) {
         return (Category) sessionFactory.getCurrentSession()
-                .createSQLQuery("select * from categories where category_name='"+categoryName+'\'')
-                .addEntity(Category.class).uniqueResult();
+                .createQuery("from Category where category_name='"+categoryName+'\'').uniqueResult();
     }
 
     @Override
     public List<Category> getCategories() {
-        List<Category> categories = sessionFactory.getCurrentSession()
-                .createSQLQuery("select * from categories").addEntity(Category.class).list();
-        return categories;
+        return sessionFactory.getCurrentSession().createQuery("from Category").list();
     }
 
     @Override
@@ -45,8 +42,6 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 
     @Override
     public void deleteCategory(Long categoryId) {
-        Session session = sessionFactory.getCurrentSession();
-        Category category = session.get(Category.class, categoryId);
-        session.delete(category);
+        sessionFactory.getCurrentSession().delete(getCategoryById(categoryId));
     }
 }

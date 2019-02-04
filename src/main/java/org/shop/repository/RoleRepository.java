@@ -2,6 +2,8 @@ package org.shop.repository;
 
 import org.shop.data.UserRole;
 
+import java.util.List;
+
 public interface RoleRepository {
     Long createRole(UserRole role);
 
@@ -9,5 +11,5 @@ public interface RoleRepository {
 
     void updateRole(UserRole role);
 
-    UserRole getRoles();
+    List<UserRole> getRoles();
 }

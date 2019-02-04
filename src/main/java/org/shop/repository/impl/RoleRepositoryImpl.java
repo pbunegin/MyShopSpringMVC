@@ -7,6 +7,8 @@ import org.shop.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class RoleRepositoryImpl implements RoleRepository {
     @Autowired
@@ -28,9 +30,7 @@ public class RoleRepositoryImpl implements RoleRepository {
     }
 
     @Override
-    public UserRole getRoles() {
-        Session session = sessionFactory.getCurrentSession();
-        UserRole roles = (UserRole) session.createSQLQuery("select * from roles").addEntity(UserRole.class).list();
-        return roles;
+    public List<UserRole> getRoles() {
+        return sessionFactory.getCurrentSession().createQuery("from Role").list();
     }
 }

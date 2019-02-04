@@ -2,7 +2,7 @@ package org.shop.controllers;
 
 import org.shop.data.Product;
 import org.shop.data.User;
-import org.shop.data.UserRole;
+import org.shop.service.CategoryService;
 import org.shop.service.ProductService;
 import org.shop.service.RoleService;
 import org.shop.service.UserService;
@@ -26,6 +26,8 @@ public class MainController {
     private UserService userService;
     @Autowired
     private RoleService roleService;
+    @Autowired
+    private CategoryService categoryService;
 
     @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
     public String index(HttpSession session, Model model) {

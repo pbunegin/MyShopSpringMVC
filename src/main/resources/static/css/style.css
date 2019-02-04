@@ -282,6 +282,7 @@ input{
     table-layout: fixed;
     border-collapse: collapse;
     width:100%;
+    min-height: 120px;
 }
 
 .popupFooter input{

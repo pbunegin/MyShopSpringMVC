@@ -1,5 +1,9 @@
 package org.shop.service.impl;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -8,11 +12,15 @@ import java.util.stream.Collectors;
 import org.shop.service.ProductService;
 import org.shop.data.Product;
 import org.shop.repository.ProductRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class ProductServiceImpl implements ProductService {
+    Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 
     @Autowired
     private ProductRepository repository;
@@ -46,15 +54,17 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteProduct(Long productId) {
         repository.deleteProduct(productId);
+        deleteFile(productId);
     }
 
     @Override
-    public void createOrUpdateProduct(Product product) {
-        if (product.getId() == null){
+    public void createOrUpdateProduct(Product product, MultipartFile file) {
+        if (product.getId() == null) {
             createProduct(product);
         } else {
             updateProduct(product);
         }
+        saveFile(product.getId(), file);
     }
 
     @Override
@@ -88,5 +98,25 @@ public class ProductServiceImpl implements ProductService {
     public List<Long> createProducts(List<Product> products) {
         products.forEach(this::createProduct);
         return products.stream().map(Product::getId).distinct().collect(Collectors.toList());
+    }
+
+    private void saveFile(Long id, MultipartFile file) {
+        try {
+            Files.write(Paths.get("target/classes/static/prodImg/" + id + ".jpg"),
+                    file.getBytes(), StandardOpenOption.CREATE);
+            Files.write(Paths.get("src/main/resources/static/prodImg/" + id + ".jpg"),
+                    file.getBytes(), StandardOpenOption.CREATE);
+        } catch (IOException e) {
+            logger.error(e.getMessage());
+        }
+    }
+
+    private void deleteFile(Long id) {
+        try {
+            Files.delete(Paths.get("target/classes/static/prodImg/" + id + ".jpg"));
+            Files.delete(Paths.get("src/main/resources/static/prodImg/" + id + ".jpg"));
+        } catch (IOException e) {
+            logger.error(e.getMessage());
+        }
     }
 }

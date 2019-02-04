@@ -3,7 +3,6 @@ package org.shop.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -28,19 +27,4 @@ public class ConfigApp implements WebMvcConfigurer {
         sessionFactory.setPackagesToScan("org.shop.data");
         return sessionFactory;
     }
-
-//    @Bean(initMethod="initData")
-//    public DataInitializer getDataInitializer(){
-//        return new DataInitializer();
-//    }
-//
-//    @Bean
-//    public ProductInitializer getProductInitializer(){
-//        return new ProductInitializer();
-//    }
-//
-//    @Bean
-//    public UserInitializer getUserInitializer(){
-//        return new UserInitializer();
-//    }
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.shop.data.Product;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface ProductService {
     
@@ -19,7 +20,7 @@ public interface ProductService {
     
     void deleteProduct(Long productId);
 
-    void createOrUpdateProduct(Product product);
+    void createOrUpdateProduct(Product product, MultipartFile file);
 
     List<Long> getIdProductsByParam(Map<String, String> request);
 
