@@ -140,6 +140,8 @@ input{
 .logo{
     text-align: center;
     margin: 0 auto;
+    word-break: break-word;
+    font-size: 1vw;
 }
 
 .logo img{
