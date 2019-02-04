@@ -46,12 +46,12 @@
         <div class="poupEditProducts" id="editProducts">
 
             <table>
-                <c:forEach var = "category" items = "${products}">
+                <c:forEach var = "category" items = "${categories}">
 
-            			<c:forEach var = "product" items = "${category.value}">
+            			<c:forEach var = "product" items = "${category.products}">
             				<tr data-edit-id=${product.id}>
             				    <td>${product.id}</td>
-            				    <td>${category.key}</td>
+            				    <td>${category.categoryName}</td>
             				    <td>${product.productName}</td>
             				    <td>${product.price}</td>
             				    <td><img src="${product.imgUrl}" value="logoButton" width="50px"></td>
@@ -157,12 +157,12 @@
 
 </div>
 <div class="content" id="content">
-    <c:forEach var = "category" items = "${products}">
-		<div class="category" data-category=${category.key}>
-			<div>${category.key}</div>
+    <c:forEach var = "category" items = "${categories}">
+		<div class="category" data-category=${category.categoryName}>
+			<div>${category.categoryName}</div>
 		</div>
         <div class="products">
-			<c:forEach var = "product" items = "${category.value}">
+			<c:forEach var = "product" items = "${category.products}">
 				<div class="product" data-id= "${product.id}">
                     <div class="logo">
                         <img src="${product.imgUrl}" value="logoButton">

@@ -23,7 +23,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
         String requestURI = request.getRequestURI();
         if ((requestURI.equals("/edit") || requestURI.equals("/remove"))
-                && !user.getRole().getRoleName().equals("admin")){
+                && !user.getRole().getRoleName().equals("admin")) {
             response.sendRedirect("/index");
             return false;
         }

@@ -1,6 +1,6 @@
 package org.shop.controllers;
 
-import org.shop.data.Product;
+import org.shop.data.Category;
 import org.shop.data.User;
 import org.shop.service.CategoryService;
 import org.shop.service.ProductService;
@@ -12,10 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class MainController {
@@ -29,17 +26,17 @@ public class MainController {
     @Autowired
     private CategoryService categoryService;
 
-    @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
+    @GetMapping({"/", "/index"})
     public String index(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
         if (user == null)
             return "redirect:login";
-        Map<String, List<Product>> products = createMap();
-        model.addAttribute("products", products);
+        List<Category> categories = categoryService.getCategories();
+        model.addAttribute("categories", categories);
         return "index";
     }
 
-    @RequestMapping(value = "/login")
+    @RequestMapping("/login")
     public String login(@RequestParam(required = false) String login,
                         @RequestParam(required = false) String password, HttpSession session) {
         if (login != null || password != null) {
@@ -55,12 +52,12 @@ public class MainController {
         return "login";
     }
 
-    @RequestMapping(value = "/registration")
+    @RequestMapping("/registration")
     public String registration(@ModelAttribute User user, HttpSession session) {
         if (user.getLogin() == null) {
             return "registration";
         }
-        if (user.getRole()==null){
+        if (user.getRole() == null) {
             user.setRole(roleService.getRoleById(2L));
         }
         userService.registerUser(user);
@@ -68,21 +65,9 @@ public class MainController {
         return "redirect:index";
     }
 
-    @RequestMapping(value = "/logout")
+    @RequestMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:login";
-    }
-
-    private Map<String, List<Product>> createMap() {
-        Map<String, List<Product>> result = new HashMap<>();
-        for (Product product : productService.getProducts()) {
-            String categoryName = product.getCategory().getCategoryName();
-            if (result.get(categoryName) == null){
-                result.put(categoryName, new ArrayList<>());
-            }
-            result.get(categoryName).add(product);
-        }
-        return result;
     }
 }

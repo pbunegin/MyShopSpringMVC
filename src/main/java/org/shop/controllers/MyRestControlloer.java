@@ -22,23 +22,22 @@ public class MyRestControlloer {
     @Autowired
     private CategoryService categoryService;
 
-    @RequestMapping(value = "/edit", method = RequestMethod.PUT)
+    @PutMapping("/edit")
     public Product edit(@ModelAttribute Product product, @RequestParam("categoryName") String categoryName,
                         @RequestParam("uploadImg") MultipartFile file) {
         Category category = categoryService.getCategoryOrCreate(categoryName);
         product.setCategory(category);
         productService.createOrUpdateProduct(product, file);
         return product;
-
     }
 
-    @RequestMapping(value = "/remove", method = RequestMethod.PUT)
+    @DeleteMapping("/remove")
     public Map<String, Long> remove(@RequestBody Map<String, Long> request) {
         productService.deleteProduct(request.get("id"));
         return request;
     }
 
-    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    @PostMapping("/search")
     public List<Long> search(@RequestBody Map<String, String> request) {
         List<Long> result = productService.getIdProductsByParam(request);
         return result;
