@@ -1,15 +1,16 @@
 package org.shop.repository.impl;
 
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.shop.data.UserRole;
 import org.shop.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
+@Transactional
 public class RoleRepositoryImpl implements RoleRepository {
     @Autowired
     private SessionFactory sessionFactory;

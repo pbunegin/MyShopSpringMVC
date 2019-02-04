@@ -1,6 +1,5 @@
 package org.shop.repository.impl;
 
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.shop.data.Product;
 import org.shop.repository.ProductRepository;
