@@ -3,6 +3,7 @@ package org.shop.data;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 @Table(name = "orders")
@@ -27,6 +28,13 @@ public class Order {
             inverseJoinColumns = @JoinColumn(name = "product_code")
     )
     private List<Product> products = new ArrayList<>();
+
+//    @ElementCollection
+//    @MapKeyColumn(name="product_code")
+//    @Column(name="quantity")
+//    @CollectionTable(name="IMAGE_MAPPING")
+//    Map<Product, Integer> products;
+
 
     public Long getOrderNumber() {
         return orderNumber;
@@ -59,6 +67,14 @@ public class Order {
     public void setStatus(String status) {
         this.status = status;
     }
+
+//    public Map<Product, Integer> getProducts() {
+//        return products;
+//    }
+//
+//    public void setProducts(Map<Product, Integer> products) {
+//        this.products = products;
+//    }
 
     public List<Product> getProducts() {
         return products;

@@ -13,10 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @RestController
 public class MyRestControlloer {
@@ -61,6 +58,11 @@ public class MyRestControlloer {
         List<Product> products = productService.getProducts(new ArrayList<>(request));
         Order order = new Order();
         order.setProducts(products);
+//        Map<Product,Integer> map = new HashMap<>();
+//        for (Product product: products){
+//            map.put(product,7);
+//        }
+//        order.setProducts(map);
         order.setUser(user);
         orderService.createOrder(order);
     }
