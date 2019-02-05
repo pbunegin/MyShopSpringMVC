@@ -1,4 +1,4 @@
-package org.shop.controllers;
+package org.shop.controller;
 
 import org.shop.data.Category;
 import org.shop.data.Product;
@@ -31,9 +31,13 @@ public class MyRestControlloer {
         return product;
     }
 
-    @DeleteMapping("/remove")
-    public Map<String, Long> remove(@RequestBody Map<String, Long> request) {
+    @DeleteMapping("/delete")
+    public Map<String, Long> delete(@RequestBody Map<String, Long> request) {
+        Category category = productService.getProductById(request.get("id")).getCategory();
         productService.deleteProduct(request.get("id"));
+        if (category.getProducts().isEmpty()){
+            categoryService.deleteCategory(category.getId());
+        }
         return request;
     }
 

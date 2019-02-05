@@ -1,4 +1,4 @@
-package org.shop.controllers;
+package org.shop.controller;
 
 import org.shop.data.Category;
 import org.shop.data.User;

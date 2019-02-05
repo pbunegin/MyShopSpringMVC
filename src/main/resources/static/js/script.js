@@ -215,7 +215,7 @@ function removeProductDB() {
     data.id = $(this).closest('tr').data('edit-id');
     $.ajax({
         type: "DELETE",
-        url: "remove",
+        url: "delete",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data: JSON.stringify(data),
