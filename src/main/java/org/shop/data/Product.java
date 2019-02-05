@@ -82,14 +82,6 @@ public class Product {
         this.maker = maker;
     }
 
-//    public List<Order> getOrders() {
-//        return orders;
-//    }
-//
-//    public void setOrders(List<Order> orders) {
-//        this.orders = orders;
-//    }
-
     @PostConstruct
     public void refreshImgUrl() {
         this.imgUrl = "/prodImg/" + this.getId() + ".jpg?" + Math.random();
