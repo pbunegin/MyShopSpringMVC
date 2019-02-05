@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -25,6 +27,12 @@ public class Product {
     private String imgUrl;
     @Column(name = "maker_code")
     private Long maker = 1L;
+
+    @ManyToMany(cascade = CascadeType.DETACH)
+    @JoinTable(name = "basket",
+            joinColumns = @JoinColumn(name = "product_code"),
+            inverseJoinColumns = @JoinColumn(name = "order_number"))
+    private List<Order> orders = new ArrayList<>();
 
     public String getProductName() {
         return productName;

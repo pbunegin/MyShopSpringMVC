@@ -6,8 +6,6 @@ import org.shop.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-//import javax.persistence.EntityManager;
-//import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -16,8 +14,6 @@ import java.util.List;
 public class OrderRepositoryImpl implements OrderRepository {
     @Autowired
     private SessionFactory sessionFactory;
-//    @PersistenceContext
-//    private EntityManager em;
 
     @Override
     public Long createOrder(Order order) {

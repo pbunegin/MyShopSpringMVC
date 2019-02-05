@@ -1,8 +1,7 @@
 package org.shop.data;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
 @Entity
@@ -22,18 +21,12 @@ public class Order {
 
     private String status = "OK";
 
-    @ManyToMany
-    @JoinTable(name = "basket",
-            joinColumns = @JoinColumn(name = "order_number"),
-            inverseJoinColumns = @JoinColumn(name = "product_code")
-    )
-    private List<Product> products = new ArrayList<>();
-
-//    @ElementCollection
-//    @MapKeyColumn(name="product_code")
-//    @Column(name="quantity")
-//    @CollectionTable(name="IMAGE_MAPPING")
-//    Map<Product, Integer> products;
+    @ElementCollection
+    @Column(name = "quantity")
+    @CollectionTable(name = "basket",
+            joinColumns = @JoinColumn(name = "order_number"))
+    @MapKeyJoinColumn(name = "product_code")
+    Map<Product, Long> products = new HashMap<>();
 
 
     public Long getOrderNumber() {
@@ -68,19 +61,11 @@ public class Order {
         this.status = status;
     }
 
-//    public Map<Product, Integer> getProducts() {
-//        return products;
-//    }
-//
-//    public void setProducts(Map<Product, Integer> products) {
-//        this.products = products;
-//    }
-
-    public List<Product> getProducts() {
+    public Map<Product, Long> getProducts() {
         return products;
     }
 
-    public void setProducts(List<Product> products) {
+    public void setProducts(Map<Product, Long> products) {
         this.products = products;
     }
 }

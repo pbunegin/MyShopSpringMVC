@@ -53,16 +53,16 @@ public class MyRestControlloer {
     }
 
     @PostMapping("/create_order")
-    public void createOrder(@RequestBody Set<Long> request, HttpSession session){
+    public void createOrder(@RequestBody List<Long> request, HttpSession session){
         User user = userService.getUserByLogin(((User)session.getAttribute("user")).getLogin());
-        List<Product> products = productService.getProducts(new ArrayList<>(request));
+        List<Product> products = productService.getProducts(request);
         Order order = new Order();
-        order.setProducts(products);
-//        Map<Product,Integer> map = new HashMap<>();
-//        for (Product product: products){
-//            map.put(product,7);
-//        }
-//        order.setProducts(map);
+//        order.setProducts(products);
+        Map<Product, Long> map = new HashMap<>();
+        for (Product product: products){
+            map.put(product,products.stream().filter(product::equals).count());
+        }
+        order.setProducts(map);
         order.setUser(user);
         orderService.createOrder(order);
     }
