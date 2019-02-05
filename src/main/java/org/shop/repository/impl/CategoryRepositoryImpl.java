@@ -38,7 +38,7 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 
     @Override
     public void updateCategory(Category category) {
-        sessionFactory.getCurrentSession().merge(category);
+        sessionFactory.getCurrentSession().update(category);
     }
 
     @Override
