@@ -25,4 +25,6 @@ public interface ProductService {
     List<Long> getIdProductsByParam(Map<String, String> request);
 
     List<Long> createProducts(List<Product> products);
+
+    List<Product> getProducts(List<Long> idList);
 }

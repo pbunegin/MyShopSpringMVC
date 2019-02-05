@@ -15,6 +15,7 @@ function setListener() {
     $('#popup3 [type="reset"]').on('click', resetUploadImgButton);
     $('#uploadImg').on('change', changeUploadImgButton);
     $('#editForm').submit(sendEditForm);
+    $('#createOrder').click(createOrder);
     $(document).on('click', '.removeFromBasket', removeFromBasket);
 }
 
@@ -289,4 +290,21 @@ function changeUploadImgButton() {
 function resetUploadImgButton() {
     $("#uploadImgButton [value = 'logoButton']").removeAttr('src');
     $("#popup3 [name='id']").val('');
+}
+
+function createOrder(){
+    let data = [];
+    $.each($('#basketProducts .product'),function(index,value){
+    data.push($(value).data('id'));
+    });
+    $.ajax({
+        type: "POST",
+        url: "create_order",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: JSON.stringify(data),
+        success: removeProductOnSite
+    });
+    return false;
+
 }

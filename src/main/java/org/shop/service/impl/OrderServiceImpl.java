@@ -11,25 +11,25 @@ import java.util.List;
 @Service
 public class OrderServiceImpl implements OrderService {
     @Autowired
-    OrderRepository orderRepository;
+    OrderRepository repository;
 
     @Override
     public Long createOrder(Order order) {
-        return orderRepository.createOrder(order);
+        return repository.createOrder(order);
     }
 
     @Override
     public Order getOrderById(Long id) {
-        return orderRepository.getOrderById(id);
+        return repository.getOrderById(id);
     }
 
     @Override
     public void updateOrder(Order order) {
-        orderRepository.updateOrder(order);
+        repository.updateOrder(order);
     }
 
     @Override
     public List<Order> getOrders() {
-        return orderRepository.getOrders();
+        return repository.getOrders();
     }
 }

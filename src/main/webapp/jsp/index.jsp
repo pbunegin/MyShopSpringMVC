@@ -126,7 +126,7 @@
                     <td id="totalSum">0</td>
                 </tr>
             </table>
-            <button class="placeOrder">Оформить</button>
+            <button class="placeOrder" id = "createOrder">Оформить</button>
         </div>
     </div>
 </div>

@@ -1,16 +1,22 @@
 package org.shop.controller;
 
 import org.shop.data.Category;
+import org.shop.data.Order;
 import org.shop.data.Product;
+import org.shop.data.User;
 import org.shop.service.CategoryService;
+import org.shop.service.OrderService;
 import org.shop.service.ProductService;
 import org.shop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @RestController
 public class MyRestControlloer {
@@ -21,6 +27,8 @@ public class MyRestControlloer {
     private UserService userService;
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private OrderService orderService;
 
     @PutMapping("/edit")
     public Product edit(@ModelAttribute Product product, @RequestParam("categoryName") String categoryName,
@@ -45,5 +53,15 @@ public class MyRestControlloer {
     public List<Long> search(@RequestBody Map<String, String> request) {
         List<Long> result = productService.getIdProductsByParam(request);
         return result;
+    }
+
+    @PostMapping("/create_order")
+    public void createOrder(@RequestBody Set<Long> request, HttpSession session){
+        User user = userService.getUserByLogin(((User)session.getAttribute("user")).getLogin());
+        List<Product> products = productService.getProducts(new ArrayList<>(request));
+        Order order = new Order();
+        order.setProducts(products);
+        order.setUser(user);
+        orderService.createOrder(order);
     }
 }

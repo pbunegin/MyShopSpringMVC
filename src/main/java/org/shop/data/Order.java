@@ -1,9 +1,11 @@
 package org.shop.data;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Table(name = "orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,12 +15,18 @@ public class Order {
     @Column(name = "point_code")
     private Long pointCode = 1L;
 
-    @Column(name = "user_code")
-    private Long userCode;
+    @ManyToOne
+    @JoinColumn(name = "user_code")
+    private User user;
 
     private String status = "OK";
 
-    private LocalDate date;
+    @ManyToMany
+    @JoinTable(name = "basket",
+            joinColumns = @JoinColumn(name = "order_number"),
+            inverseJoinColumns = @JoinColumn(name = "product_code")
+    )
+    private List<Product> products = new ArrayList<>();
 
     public Long getOrderNumber() {
         return orderNumber;
@@ -36,12 +44,12 @@ public class Order {
         this.pointCode = pointCode;
     }
 
-    public Long getUserCode() {
-        return userCode;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserCode(Long userCode) {
-        this.userCode = userCode;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getStatus() {
@@ -52,11 +60,11 @@ public class Order {
         this.status = status;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public List<Product> getProducts() {
+        return products;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 }

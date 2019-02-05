@@ -100,6 +100,15 @@ public class ProductServiceImpl implements ProductService {
         return products.stream().map(Product::getId).distinct().collect(Collectors.toList());
     }
 
+    @Override
+    public List<Product> getProducts(List<Long> idList) {
+        List<Product> products = new ArrayList<>();
+        for (Long id: idList){
+            products.add(getProductById(id));
+        }
+        return products;
+    }
+
     private void saveFile(Long id, MultipartFile file) {
         try {
             Files.write(Paths.get("target/classes/static/prodImg/" + id + ".jpg"),
