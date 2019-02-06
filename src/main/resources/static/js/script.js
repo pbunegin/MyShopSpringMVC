@@ -212,8 +212,8 @@ function editProductDB() {
 }
 
 function removeProductDB() {
-    let data = {};
-    data.id = $(this).closest('tr').data('edit-id');
+    let data = [];
+    data.push($(this).closest('tr').data('edit-id'));
     $.ajax({
         type: "DELETE",
         url: "delete",
@@ -227,9 +227,11 @@ function removeProductDB() {
 }
 
 function removeProductOnSite(data) {
-    $('.products').children('[data-id="' + data.id + '"]').remove();
-    $('#basketProducts').children('[data-id="' + data.id + '"]').each(removeFromBasket);
-    $('tbody').children('[data-edit-id="' + data.id + '"]').remove();
+    $.each(data,function(index,value){
+        $('.products').children('[data-id="' + value + '"]').remove();
+        $('#basketProducts').children('[data-id="' + value + '"]').each(removeFromBasket);
+        $('tbody').children('[data-edit-id="' + value + '"]').remove();
+    });
     let prodsDivRem = $('.products:not(.products:has(div))');
     prodsDivRem.prev().remove();
     prodsDivRem.remove();

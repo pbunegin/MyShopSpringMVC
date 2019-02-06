@@ -52,4 +52,10 @@ public class CategoryServiceImpl implements CategoryService {
         }
         return category;
     }
+
+    @Override
+    public void clearCategory() {
+        getCategories().stream().filter(category -> category.getProducts().isEmpty())
+                .forEach(category -> deleteCategory(category.getId()));
+    }
 }

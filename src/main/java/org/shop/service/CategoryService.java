@@ -18,4 +18,6 @@ public interface CategoryService {
     void deleteCategory(Long categoryId);
 
     Category getCategoryOrCreate(String categoryName);
+
+    void clearCategory();
 }

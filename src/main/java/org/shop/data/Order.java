@@ -7,6 +7,8 @@ import javax.persistence.*;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.util.stream.Collectors.toMap;
+
 @Entity
 @Table(name = "orders")
 public class Order {
@@ -75,11 +77,6 @@ public class Order {
 
     @JsonGetter
     public Map<Long, Long> getProductsWithId() {
-        Map<Long, Long> result = new HashMap<>();
-        for (Map.Entry<Product, Long> map: this.products.entrySet()) {
-            result.put(map.getKey().getId(), map.getValue());
-        }
-        return result;
+        return this.products.entrySet().stream().collect(toMap(k->k.getKey().getId(), Map.Entry::getValue));
     }
-
 }

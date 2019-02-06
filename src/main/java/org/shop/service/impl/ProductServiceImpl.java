@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -69,7 +68,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Long> getIdProductsByParam(Map<String, String> searchParam) {
-        List<Long> result = new ArrayList<>();
+        List<Long> result = null;
         switch (searchParam.get("searchParam")) {
             case "byName": {
                 result = getProducts().stream()
@@ -96,17 +95,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Long> createProducts(List<Product> products) {
-        products.forEach(this::createProduct);
-        return products.stream().map(Product::getId).distinct().collect(Collectors.toList());
+        return products.stream().map(this::createProduct).distinct().collect(Collectors.toList());
     }
 
     @Override
     public List<Product> getProducts(List<Long> idList) {
-        List<Product> products = new ArrayList<>();
-        for (Long id: idList){
-            products.add(getProductById(id));
-        }
-        return products;
+        return idList.stream().map(this::getProductById).collect(Collectors.toList());
     }
 
     private void saveFile(Long id, MultipartFile file) {

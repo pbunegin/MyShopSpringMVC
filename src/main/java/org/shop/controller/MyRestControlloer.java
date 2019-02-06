@@ -14,6 +14,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.util.*;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.counting;
 
 @RestController
 public class MyRestControlloer {
@@ -33,35 +36,28 @@ public class MyRestControlloer {
         Category category = categoryService.getCategoryOrCreate(categoryName);
         product.setCategory(category);
         productService.createOrUpdateProduct(product, file);
+        categoryService.clearCategory();
         return product;
     }
 
     @DeleteMapping("/delete")
-    public Map<String, Long> delete(@RequestBody Map<String, Long> request) {
-        Category category = productService.getProductById(request.get("id")).getCategory();
-        productService.deleteProduct(request.get("id"));
-        if (category.getProducts().isEmpty()){
-            categoryService.deleteCategory(category.getId());
-        }
-        return request;
+    public List<Long> delete(@RequestBody List<Long> productId) {
+        productId.forEach(id -> productService.deleteProduct(id));
+        categoryService.clearCategory();
+        return productId;
     }
 
     @PostMapping("/search")
     public List<Long> search(@RequestBody Map<String, String> request) {
-        List<Long> result = productService.getIdProductsByParam(request);
-        return result;
+        return productService.getIdProductsByParam(request);
     }
 
     @PostMapping("/create_order")
-    public Order createOrder(@RequestBody List<Long> request, HttpSession session){
+    public Order createOrder(@RequestBody List<Long> productsId, HttpSession session){
         User user = userService.getUserByLogin(((User)session.getAttribute("user")).getLogin());
-        List<Product> products = productService.getProducts(request);
         Order order = new Order();
-//        order.setProducts(products);
-        Map<Product, Long> map = new HashMap<>();
-        for (Product product: products){
-            map.put(product,products.stream().filter(product::equals).count());
-        }
+        Map<Product, Long> map = productService.getProducts(productsId)
+                .stream().collect(Collectors.groupingBy(k->k,counting()));
         order.setProducts(map);
         order.setUser(user);
         orderService.createOrder(order);
