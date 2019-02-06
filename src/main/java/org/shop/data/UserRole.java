@@ -1,5 +1,8 @@
 package org.shop.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonValue;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +29,7 @@ public class UserRole {
         Id = id;
     }
 
+    @JsonValue
     public String getRoleName() {
         return roleName;
     }

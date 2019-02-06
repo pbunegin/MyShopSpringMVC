@@ -1,5 +1,8 @@
 package org.shop.data;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,6 +24,7 @@ public class Order {
 
     private String status = "OK";
 
+    @JsonIgnore
     @ElementCollection
     @Column(name = "quantity")
     @CollectionTable(name = "basket",
@@ -68,4 +72,14 @@ public class Order {
     public void setProducts(Map<Product, Long> products) {
         this.products = products;
     }
+
+    @JsonGetter
+    public Map<Long, Long> getProductsWithId() {
+        Map<Long, Long> result = new HashMap<>();
+        for (Map.Entry<Product, Long> map: this.products.entrySet()) {
+            result.put(map.getKey().getId(), map.getValue());
+        }
+        return result;
+    }
+
 }

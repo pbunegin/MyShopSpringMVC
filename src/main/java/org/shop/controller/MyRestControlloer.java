@@ -53,7 +53,7 @@ public class MyRestControlloer {
     }
 
     @PostMapping("/create_order")
-    public void createOrder(@RequestBody List<Long> request, HttpSession session){
+    public Order createOrder(@RequestBody List<Long> request, HttpSession session){
         User user = userService.getUserByLogin(((User)session.getAttribute("user")).getLogin());
         List<Product> products = productService.getProducts(request);
         Order order = new Order();
@@ -65,5 +65,6 @@ public class MyRestControlloer {
         order.setProducts(map);
         order.setUser(user);
         orderService.createOrder(order);
+        return order;
     }
 }

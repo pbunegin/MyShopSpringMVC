@@ -28,6 +28,7 @@ public class Product {
     @Column(name = "maker_code")
     private Long maker = 1L;
 
+//    @JsonIgnore
     @ManyToMany(cascade = CascadeType.DETACH)
     @JoinTable(name = "basket",
             joinColumns = @JoinColumn(name = "product_code"),

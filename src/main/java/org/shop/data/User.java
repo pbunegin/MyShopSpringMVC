@@ -1,5 +1,7 @@
 package org.shop.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -13,6 +15,7 @@ public class User {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
+    @JsonIgnore
     private String password;
     private String login;
     @ManyToOne
