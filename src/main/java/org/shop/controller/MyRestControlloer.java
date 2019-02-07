@@ -36,14 +36,14 @@ public class MyRestControlloer {
         Category category = categoryService.getCategoryOrCreate(categoryName);
         product.setCategory(category);
         productService.createOrUpdateProduct(product, file);
-        categoryService.clearCategory();
+//        categoryService.clearCategory();
         return product;
     }
 
     @DeleteMapping("/delete")
     public List<Long> delete(@RequestBody List<Long> productId) {
         productId.forEach(id -> productService.deleteProduct(id));
-        categoryService.clearCategory();
+//        categoryService.clearCategory();
         return productId;
     }
 

@@ -15,7 +15,7 @@ public class Category {
     private Long id;
     @Column(name = "category_name")
     private String categoryName;
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category",fetch = FetchType.EAGER)
     private List<Product> products = new ArrayList<>();
 
     public Category() {

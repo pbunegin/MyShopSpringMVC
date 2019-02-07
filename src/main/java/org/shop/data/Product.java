@@ -2,7 +2,6 @@ package org.shop.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -91,7 +90,6 @@ public class Product {
         this.maker = maker;
     }
 
-    @PostConstruct
     public void refreshImgUrl() {
         this.imgUrl = "/prodImg/" + this.getId() + ".jpg?" + Math.random();
     }
