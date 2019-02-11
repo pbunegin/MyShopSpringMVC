@@ -1,13 +1,7 @@
 package org.shop.controller;
 
-import org.shop.data.Category;
-import org.shop.data.Order;
-import org.shop.data.Product;
-import org.shop.data.User;
-import org.shop.service.CategoryService;
-import org.shop.service.OrderService;
-import org.shop.service.ProductService;
-import org.shop.service.UserService;
+import org.shop.data.*;
+import org.shop.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,6 +23,8 @@ public class MyRestControlloer {
     private CategoryService categoryService;
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private RoleService roleService;
 
     @PutMapping("/edit")
     public Product edit(@ModelAttribute Product product, @RequestParam("categoryName") String categoryName,
@@ -62,5 +58,10 @@ public class MyRestControlloer {
         order.setUser(user);
         orderService.createOrder(order);
         return order;
+    }
+
+    @GetMapping("/roles")
+    public List<UserRole> getRoles(){
+        return roleService.getRoles();
     }
 }
