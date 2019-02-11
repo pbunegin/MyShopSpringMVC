@@ -1,6 +1,5 @@
 package org.shop.repository.impl;
 
-import org.hibernate.SessionFactory;
 import org.shop.data.UserRole;
 import org.shop.repository.RoleRepository;
 import org.slf4j.Logger;
@@ -10,10 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import javax.transaction.Transactional;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,10 +93,10 @@ public class RoleRepositoryImpl implements RoleRepository {
         try {
             connection = dataSource.getConnection();
             preparedStatement = connection.prepareStatement(
-                    "insert into roles(role_id, user_role, description) values(?,?,?)");
-            preparedStatement.setLong(1, role.getId());
-            preparedStatement.setString(2, role.getRoleName());
-            preparedStatement.setString(3, role.getDescription());
+                    "update roles set user_role=?, description=? where role_id=?");
+            preparedStatement.setLong(3, role.getId());
+            preparedStatement.setString(1, role.getRoleName());
+            preparedStatement.setString(2, role.getDescription());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error(e.getSQLState());
@@ -120,25 +116,34 @@ public class RoleRepositoryImpl implements RoleRepository {
 
     @Override
     public List<UserRole> getRoles() {
-        UserRole userRole = new UserRole();
+        List<UserRole> roles = new ArrayList<>();
         Connection connection = null;
+        Statement statement = null;
         try {
             connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(
-                    "select * from roles where role_id=?");
-            preparedStatement.setLong(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            userRole.setId(resultSet.getLong("role_id"));
-            userRole.setRoleName(resultSet.getString("user_role"));
-            userRole.setDescription("description");
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("select * from roles");
+            while (resultSet.next()){
+                UserRole role = new UserRole();
+                role.setId(resultSet.getLong("role_id"));
+                role.setRoleName(resultSet.getString("user_role"));
+                role.setDescription(resultSet.getString("description"));
+                roles.add(role);
+            }
         } catch (SQLException e) {
             LOGGER.error(e.getSQLState());
         } finally {
-            if (connection != null) {
-                connection.close();
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                LOGGER.error(e.getSQLState());
             }
         }
-        return userRole;
+        return roles;
     }
 }
