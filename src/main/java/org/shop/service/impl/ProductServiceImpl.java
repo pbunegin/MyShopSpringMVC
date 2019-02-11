@@ -19,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-    Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(ProductServiceImpl.class);
 
     @Autowired
     private ProductRepository repository;
@@ -110,7 +110,7 @@ public class ProductServiceImpl implements ProductService {
             Files.write(Paths.get("src/main/resources/static/prodImg/" + id + ".jpg"),
                     file.getBytes(), StandardOpenOption.CREATE);
         } catch (IOException e) {
-            logger.error(e.getMessage());
+            LOGGER.error(e.getMessage());
         }
     }
 
@@ -119,7 +119,7 @@ public class ProductServiceImpl implements ProductService {
             Files.delete(Paths.get("target/classes/static/prodImg/" + id + ".jpg"));
             Files.delete(Paths.get("src/main/resources/static/prodImg/" + id + ".jpg"));
         } catch (IOException e) {
-            logger.error(e.getMessage());
+            LOGGER.error(e.getMessage());
         }
     }
 }
