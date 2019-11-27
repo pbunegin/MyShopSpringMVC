@@ -17,14 +17,14 @@ public class LoginInterceptor implements HandlerInterceptor {
         User user = (User) session.getAttribute("user");
 
         if (user == null) {
-            response.sendRedirect("/login");
+            response.sendRedirect(request.getContextPath() + "/login");
             return false;
         }
 
         String requestURI = request.getRequestURI();
-        if ((requestURI.equals("/edit") || requestURI.equals("/remove"))
+        if ((requestURI.equals(request.getContextPath() + "/edit") || requestURI.equals(request.getContextPath() + "/remove"))
                 && !user.getRole().getRoleName().equals("admin")) {
-            response.sendRedirect("/index");
+            response.sendRedirect(request.getContextPath() + "/index");
             return false;
         }
         return true;

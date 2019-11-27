@@ -8,7 +8,7 @@
     <meta charset="utf-8">
     <title>Список товаров</title>
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="stylesheet" href="css/style.css">
     <script src="js/jquery-3.3.1.min.js" asyns></script>
     <script src="js/script.js" asyns></script>
 </head>
@@ -54,7 +54,7 @@
             				    <td>${category.categoryName}</td>
             				    <td>${product.productName}</td>
             				    <td>${product.price}</td>
-            				    <td><img src="${product.imgUrl}" value="logoButton" width="50px"></td>
+            				    <td><img src="prodImg/${product.imgUrl}" value="logoButton" width="50px"></td>
             				    <td><c:forEach var = "charact" items = "${fn:split(product.characteristic, ';')}">${charact};<br></c:forEach></td>
             				    <td align="right"><img class="editProductDB" value="editProduct" src="img/edit.png"></td>
             				    <td align="right"><img class="removeProductDB" value="removeProduct" src="img/removeFromBasket.png"></td>
@@ -165,7 +165,7 @@
 			<c:forEach var = "product" items = "${category.products}">
 				<div class="product" data-id= "${product.id}">
                     <div class="logo">
-                        <img src="${product.imgUrl}" value="logoButton">
+                        <img src="prodImg/${product.imgUrl}" value="logoButton">
                         <div class="productName">${product.productName}</div>
                     </div>
                     <div class="infoProduct">

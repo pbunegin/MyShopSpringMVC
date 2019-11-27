@@ -91,7 +91,7 @@ public class Product {
     }
 
     public void refreshImgUrl() {
-        this.imgUrl = "/prodImg/" + this.getId() + ".jpg?" + Math.random();
+        this.imgUrl = this.getId() + ".jpg?" + Math.random();
     }
 
     @Override
