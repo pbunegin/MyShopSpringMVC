@@ -12,7 +12,7 @@ import javax.sql.DataSource;
 @Configuration
 public class ConfigApp implements WebMvcConfigurer {
     @Autowired
-    private DataSource dataSource;
+    private DataSource myDataSource;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -23,7 +23,7 @@ public class ConfigApp implements WebMvcConfigurer {
     @Bean
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-        sessionFactory.setDataSource(dataSource);
+        sessionFactory.setDataSource(myDataSource);
         sessionFactory.setPackagesToScan("org.shop.data");
         return sessionFactory;
     }
