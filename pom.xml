@@ -17,6 +17,8 @@
 	<packaging>war</packaging>
 
 	<properties>
+		<jetty.version>9.4.24.v20191120</jetty.version>
+		<jetty-jsp.version>2.2.0.v201112011158</jetty-jsp.version>
 		<java.version>1.8</java.version>
 	</properties>
 
@@ -24,6 +26,16 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jetty</artifactId>
 		</dependency>
 
 		<dependency>
@@ -42,24 +54,6 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-
-		<!-- JSTL for JSP -->
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-		</dependency>
-		<!-- Need this to compile JSP -->
-		<dependency>
-			<groupId>org.apache.tomcat.embed</groupId>
-			<artifactId>tomcat-embed-jasper</artifactId>
-			<!--<scope>provided</scope> -->
-		</dependency>
-
-		<!--<dependency> -->
-		<!--<groupId>taglibs</groupId> -->
-		<!--<artifactId>standard</artifactId> -->
-		<!--<scope>runtime</scope> -->
-		<!--</dependency> -->
 
 		<dependency>
 			<groupId>com.googlecode.json-simple</groupId>
@@ -85,11 +79,12 @@
 	</dependencies>
 
 	<build>
+	<finalName>myshop</finalName>
 		<plugins>
-			<!-- >plugin>
+			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin -->
+			</plugin>
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
@@ -98,6 +93,22 @@
 					<url>http://localhost:8081/manager/text</url>
 					<server>TomcatServer</server>
 					<path>/myshop</path>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.cargo</groupId>
+				<artifactId>cargo-maven2-plugin</artifactId>
+				<version>1.5.0</version>
+				<configuration>
+					<container>
+						<containerId>jetty9x</containerId>
+						<type>installed</type>
+						<home>C:\DeployJavaApplicationsWithApacheTomcat\jetty-distribution-9.4.24.v20191120</home>
+					</container>
+					<configuration>
+						<type>existing</type>
+						<home>C:\DeployJavaApplicationsWithApacheTomcat\jetty-distribution-9.4.24.v20191120</home>
+					</configuration>
 				</configuration>
 			</plugin>
 		</plugins>
